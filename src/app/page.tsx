@@ -1,14 +1,38 @@
 import { Aboutme } from "@/components/home/Aboutme";
+import { MovingBorderDemo } from "@/components/home/Buttons";
 import { SparklesPreview } from "@/components/home/Sparkles";
 import { TextRevealCardPreview } from "@/components/home/TextCard";
+import { TypewriterEffectSmoothDemo } from "@/components/home/WritingEffect";
+import { InfiniteMovingCardsDemo } from "@/components/home/logos";
+import { MacbookScrollDemo } from "@/components/home/macbook";
+import { HeroParallaxDemo } from "@/components/home/projects";
+import { TracingBeam } from "@/components/ui/Tracking";
 import Image from "next/image";
-
+import s from "./home/Home.module.css";
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <SparklesPreview />
-      <TextRevealCardPreview />
-      <Aboutme />
-    </main>
+    <>
+      <div className={s.root}>
+        <TracingBeam>
+          <div>
+            <SparklesPreview />
+            <TextRevealCardPreview />
+            <div className="w-full bg-black mt-5 flex flex-row gap-5 items-center justify-center">
+              <MovingBorderDemo text={"download CV"} />
+
+              <MovingBorderDemo text={"contact me"} />
+            </div>
+            <Aboutme />
+            <div className="container max-width-2xl">
+              <MacbookScrollDemo />
+              <TypewriterEffectSmoothDemo />
+              <InfiniteMovingCardsDemo />
+            </div>
+            <div className="container w-[100vw] bg-slate-500"></div>
+            <HeroParallaxDemo />
+          </div>
+        </TracingBeam>
+      </div>
+    </>
   );
 }
