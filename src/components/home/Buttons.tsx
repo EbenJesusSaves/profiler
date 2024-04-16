@@ -1,6 +1,6 @@
 "use client";
+import { Button } from "@/ui/CoolBtn";
 import React from "react";
-import { Button } from "@/CoolBtn";
 
 export function MovingBorderDemo({ text }: { text: string }) {
   return (

@@ -1,9 +1,10 @@
 import React from "react";
 
 import Link from "next/link";
-import { MacbookScroll } from "@/macbook";
+
 import { StaticImageData } from "next/image";
 import linkedInImage from "../../../public/images/LINKEDIN.webp";
+import { MacbookScroll } from "@/ui/macbook";
 export const MacbookScrollDemo = () => {
   return (
     <div className="overflow-hidden dark:bg-[#0B0B0F] bg-white w-full">
