@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { InfiniteMovingCards } from "@/slidesScroll";
+
 import logo1 from "../../../public/logo/express.webp";
 import logo2 from "../../../public/logo/docker.webp";
 import logo3 from "../../../public/logo/python.webp";
@@ -10,6 +10,7 @@ import logo5 from "../../../public/logo/react.webp";
 import logo6 from "../../../public/logo/reactnative.webp";
 import logo7 from "../../../public/logo/typescript.webp";
 import logo8 from "../../../public/logo/next.webp";
+import { InfiniteMovingCards } from "@/ui/slidesScroll";
 
 export function InfiniteMovingCardsDemo() {
   return (
