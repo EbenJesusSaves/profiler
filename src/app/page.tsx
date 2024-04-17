@@ -17,18 +17,17 @@ export default function Home() {
           <div>
             <SparklesPreview />
             <TextRevealCardPreview />
-            <div className="w-full bg-black mt-5 flex flex-row gap-5 items-center justify-center">
+            <div className="w-full bg-black mt-[8rem] flex flex-row gap-5 items-center justify-center">
               <MovingBorderDemo text={"download CV"} />
-
               <MovingBorderDemo text={"contact me"} />
             </div>
             <Aboutme />
             <div className="container max-width-2xl">
-              <MacbookScrollDemo />
+              {/* <MacbookScrollDemo /> */}
               <TypewriterEffectSmoothDemo />
               <InfiniteMovingCardsDemo />
             </div>
-            <div className="container w-[100vw] bg-slate-500"></div>
+            <div className="container lg:w-[100vw] bg-slate-500"></div>
             <HeroParallaxDemo />
           </div>
         </TracingBeam>

@@ -72,11 +72,10 @@ export const InfiniteMovingCards = ({
     }
   };
   return (
-
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20  max-w-7xl overflow-hidden  [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
+        "scroller relative z-20  max-w-5xl lg:max-w-7xl overflow-hidden  [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
         className
       )}
     >
@@ -106,14 +105,9 @@ export const InfiniteMovingCards = ({
                 <Image src={item.image} height={200} width={400} alt="hi" />
               </span>
               <div className="relative z-20 mt-6 flex flex-row items-center">
-
                 <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
-                  <Button>
-                    {item.name}
-                  </Button>
-
+                  <Button>{item.name}</Button>
                 </span>
-
               </div>
             </blockquote>
           </li>
