@@ -9,6 +9,7 @@ import { HeroParallaxDemo } from "@/components/home/projects";
 import { TracingBeam } from "@/components/ui/Tracking";
 import Image from "next/image";
 import s from "./home/Home.module.css";
+import aboutImg from "../../public/avatars/Dynamic.png";
 export default function Home() {
   return (
     <>
@@ -16,11 +17,19 @@ export default function Home() {
         <TracingBeam>
           <div>
             <SparklesPreview />
-            <TextRevealCardPreview />
-            <div className="w-full bg-black mt-[8rem] flex flex-row gap-5 items-center justify-center">
-              <MovingBorderDemo text={"download CV"} />
-              <MovingBorderDemo text={"contact me"} />
+            <div className="flex justify-center flex-wrap-reverse lg:flex-nowrap">
+              <div>
+                <TextRevealCardPreview />
+                <div className="w-full bg-black mt-[8rem] flex flex-row gap-5 items-center justify-center">
+                  <MovingBorderDemo text={"download CV"} />
+                  <MovingBorderDemo text={"contact me"} />
+                </div>
+              </div>
+              <div>
+                <Image src={aboutImg} alt="" height={500} />
+              </div>
             </div>
+
             <Aboutme />
             <div className="container max-width-2xl">
               {/* <MacbookScrollDemo /> */}

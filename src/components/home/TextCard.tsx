@@ -19,18 +19,18 @@ export function TextRevealCardPreview() {
         revealText="I know the chemistry "
       >
         <TextRevealCardTitle className="justify-center text-center">
-          I am Eben, A creative software Engineer.
+          A creative software Engineer.
         </TextRevealCardTitle>
         <TextRevealCardDescription className="text-center">
-          {`Ebenezer is React Native and React Developer with over 3
+          {`Ebenezer is React Native and React Developer with over 4
             years of experience in building mobile and web apps. Currently, Ebenezer
-            works as a Frontend developer at Jotella Media Group, where he uses
-            React Native, React, Next.js, and Typescript to build performant
-            apps. Before that, He was a JavaScript Instructor at Grassroot, where
+            works as a Frontend developer at Jotella Media Group (Toronto Canada, Remote), where he builds performant mobile and web apps with
+            React Native, React, Next.js, and Typescript. Before that, He worked as JavaScript Instructor 
+            at Grassroot Academy (London UK, Remote), where
             he had the pleasure of teaching others. In the past, he has also worked
-            as a UI/UX Designer at Fofoofotech, designing websites, mobile apps,
+            as a UI/UX Designer at Fofoofotech (Accra, Ghana), designing websites, mobile apps,
             logos, and flyers for some of the biggest enterprise firms. It was a
-            fantastic experience that helped him increase their revenue. Ebenezer
+            fantastic experience that helped him increase their revenue. Ebenezer is
             comfortable working in large-scale collaborations, and Ebenezer's skills
             include React Native, React, Next.js, Typescript, Express, Node.js,
             MongoDB, Postgres SQL, UI/UX designing, data mining, JavaScript, and
