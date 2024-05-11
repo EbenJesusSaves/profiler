@@ -10,6 +10,8 @@ import { TracingBeam } from "@/components/ui/Tracking";
 import Image from "next/image";
 import s from "./home/Home.module.css";
 import aboutImg from "../../public/avatars/Dynamic.png";
+import { GoogleGeminiEffectComponent } from "@/components/home/ColorsScrollEffect";
+import { GetInTouch } from "@/components/home/Forms";
 export default function Home() {
   return (
     <>
@@ -25,11 +27,7 @@ export default function Home() {
                   <MovingBorderDemo text={"contact me"} />
                 </div>
               </div>
-              <div>
-                <Image src={aboutImg} alt="" height={500} />
-              </div>
             </div>
-
             <Aboutme />
             <div className="container max-width-2xl">
               {/* <MacbookScrollDemo /> */}
@@ -38,6 +36,13 @@ export default function Home() {
             </div>
             <div className="container lg:w-[100vw] bg-slate-500"></div>
             <HeroParallaxDemo />
+          </div>
+          <GoogleGeminiEffectComponent />
+          <div className="flex justify-around items-center">
+            <div className="bg-green-400">First div</div>
+            <div className="bg-green-400">
+              <GetInTouch />
+            </div>
           </div>
         </TracingBeam>
       </div>

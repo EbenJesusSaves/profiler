@@ -5,7 +5,9 @@ import { SparklesCore } from "../ui/sparkles";
 export function SparklesPreview() {
   return (
     <div className="h-[30rem] w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
-      <small className="text-white text-sky-500">Hey There,</small>
+      <small className="text-white text-sky-500">
+        Hey There, 🚀Welcome Aboard!
+      </small>
       <h1 className="md:text-7xl text-5xl lg:text-9xl font-bold text-center text-white relative z-20">
         Eben Here
       </h1>

@@ -27,19 +27,19 @@ export const Aboutme = () => {
       </div>
       <div className="container flex md:h-[45rem]  flex-wrap justify-center  items-center">
         <MeteorsComp
-          mainText="Experience"
+          mainText="4+ Experience"
           subText="Have been working as software engineer for more than 4 years, building Web and Mobile Apps individually and as member of team "
           btNText="Explore"
           icon={<LiaAwardSolid size={"60px"} color="white" />}
         />
         <MeteorsComp
-          mainText="Clients"
+          mainText=" 200+ Clients"
           subText="Have worked with 300+ clients worldwide, on both individual and corporate projects (UI/UX designs, web and Mobile Apps)  "
           btNText="Explore"
           icon={<BsPeople size={"60px"} color="white" />}
         />
         <MeteorsComp
-          mainText="Projects"
+          mainText="100+ Projects"
           subText="Have have a track record of completed more than 250+ engineering and design projects for both corporate and individual"
           btNText="Explore"
           icon={<IoFolderOpenOutline size={"60px"} color="white" />}
