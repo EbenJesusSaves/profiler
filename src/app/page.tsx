@@ -13,6 +13,7 @@ import aboutImg from "../../public/avatars/Dynamic.png";
 import { GoogleGeminiEffectComponent } from "@/components/home/ColorsScrollEffect";
 import { GetInTouch } from "@/components/home/Forms";
 import { Fragment } from "react";
+import { VortexComp } from "@/components/home/RandomNoice";
 export default function Home() {
   return (
     <div className="flex  items-center flex-col ">
@@ -34,6 +35,7 @@ export default function Home() {
           {/* <MacbookScrollDemo /> */}
           <TypewriterEffectSmoothDemo />
           <InfiniteMovingCardsDemo />
+          <VortexComp />
         </div>
       </div>
 
