@@ -14,6 +14,7 @@ import { GoogleGeminiEffectComponent } from "@/components/home/ColorsScrollEffec
 import { GetInTouch } from "@/components/home/Forms";
 import { Fragment } from "react";
 import { VortexComp } from "@/components/home/RandomNoice";
+import { GlowingStarsBackgroundCardComp } from "@/components/home/AboutCard";
 export default function Home() {
   return (
     <div className="flex  items-center flex-col ">
@@ -44,9 +45,19 @@ export default function Home() {
       </div>
 
       <GoogleGeminiEffectComponent />
-      <div className="flex justify-around items-center bg-black w-full">
-        <div className="bg-green-400">First div</div>
-        <div className="bg-green-400">
+      <div className="flex justify-center gap-52 items-center bg-black w-full">
+        <div className="">
+          <GlowingStarsBackgroundCardComp
+            title="Email"
+            text="agyekumebenezer2001@gmail.com"
+          />
+          <GlowingStarsBackgroundCardComp
+            title="WhatsApp"
+            text="+233 249 666 839"
+          />
+          <GlowingStarsBackgroundCardComp title="Twitter" text="coming soon" />
+        </div>
+        <div className="">
           <GetInTouch />
         </div>
       </div>
