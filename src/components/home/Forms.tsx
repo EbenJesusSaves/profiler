@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-
+import React, { useRef } from "react";
+import emailjs from "@emailjs/browser";
 import {
   IconBrandGithub,
   IconBrandGoogle,
@@ -13,10 +13,29 @@ import { cn } from "../util/cn";
 import { TextArea } from "../ui/TextArea";
 
 export function GetInTouch() {
+  const form = useRef();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
   };
+
+  // const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+
+  //   emailjs
+  //     .sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", form?.current, {
+  //       publicKey: "YOUR_PUBLIC_KEY",
+  //     })
+  //     .then(
+  //       () => {
+  //         console.log("SUCCESS!");
+  //       },
+  //       (error) => {
+  //         console.log("FAILED...", error.text);
+  //       }
+  //     );
+  // };
+
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
@@ -58,16 +77,18 @@ export function GetInTouch() {
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
         <div className="flex flex-col space-y-4">
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
+          <button className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]">
             <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
+
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              GitHub
+              <a href="https://github.com/EbenJesusSaves" target="_blank">
+                GitHub
+              </a>
             </span>
+
             <BottomGradient />
           </button>
+
           <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type="submit"
@@ -75,16 +96,6 @@ export function GetInTouch() {
             <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
             <span className="text-neutral-700 dark:text-neutral-300 text-sm">
               Google
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              OnlyFans
             </span>
             <BottomGradient />
           </button>
