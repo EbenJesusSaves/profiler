@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Tabs } from "../ui/TabsComponent";
 
 export const DummyContent = () => {
   return (
