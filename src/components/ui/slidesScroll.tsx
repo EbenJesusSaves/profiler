@@ -106,7 +106,10 @@ export const InfiniteMovingCards = ({
               </span>
               <div className="relative z-20 mt-6 flex flex-row items-center">
                 <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
-                  <Button>{item.name}</Button>
+                  <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
+                    {item.name}
+                    <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
+                  </button>
                 </span>
               </div>
             </blockquote>
