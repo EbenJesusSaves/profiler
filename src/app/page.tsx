@@ -8,7 +8,7 @@ import gitImage from "../../public/images/Animation - 1717134917174.gif";
 import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
 import { FloatingNav } from "@/components/ui/TabsComponent";
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navItems = [
     {
@@ -25,11 +25,15 @@ export default function Home() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      window.onload = (event) => {
+      if (document.readyState === "complete") {
         setIsLoading(false);
-      };
+      } else {
+        window.onload = () => {
+          setIsLoading(false);
+        };
+      }
     }
-  }, [isLoading]);
+  }, []);
 
   return (
     <div className="flex items-center flex-col bg-black ">
