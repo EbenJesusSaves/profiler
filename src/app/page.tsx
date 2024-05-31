@@ -8,9 +8,11 @@ import gitImage from "../../public/images/Animation - 1717134917174.gif";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
-  window.onload = (event) => {
-    setIsLoading(false);
-  };
+  if (typeof window !== "undefined") {
+    window.onload = (event) => {
+      setIsLoading(false);
+    };
+  }
 
   return (
     <div className="flex items-center flex-col bg-black ">
