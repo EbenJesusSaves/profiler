@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { HeroParallax } from "../ui/movingPages";
+
 import u1 from "../../../public/images/Untitled-1.webp";
 import u2 from "../../../public/images/Untitled-2.webp";
 import u3 from "../../../public/images/Untitled-3.webp";
@@ -8,9 +8,24 @@ import u4 from "../../../public/images/Untitled-4.webp";
 import u5 from "../../../public/images/Untitled-5.webp";
 import u6 from "../../../public/images/Untitled-6.webp";
 import u7 from "../../../public/images/Untitled-7.webp";
+import { DirectionAwareHover } from "../ui/movingPages";
 
 export function HeroParallaxDemo() {
-  return <HeroParallax products={products} />;
+  return (
+    <div className="container flex flex-wrap gap-5">
+      {products.map((item) => (
+        <div
+          key={item.title}
+          className=" relative  flex items-center justify-center"
+        >
+          <DirectionAwareHover imageUrl={item.thumbnail}>
+            <p className="font-bold text-xl">In the mountains</p>
+            <p className="font-normal text-sm">$1299 / night</p>
+          </DirectionAwareHover>
+        </div>
+      ))}
+    </div>
+  );
 }
 export const products = [
   {

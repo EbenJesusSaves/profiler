@@ -1,124 +1,82 @@
 "use client";
+import React, { useState } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import Link from "next/link";
 import { cn } from "../util/cn";
 
-type Tab = {
-  title: string;
-  value: string;
-  content?: string | React.ReactNode | any;
-};
-
-export const Tabs = ({
-  tabs: propTabs,
-  containerClassName,
-  activeTabClassName,
-  tabClassName,
-  contentClassName,
+export const FloatingNav = ({
+  navItems,
+  className,
 }: {
-  tabs: Tab[];
-  containerClassName?: string;
-  activeTabClassName?: string;
-  tabClassName?: string;
-  contentClassName?: string;
+  navItems: {
+    name: string;
+    link: string;
+    icon?: JSX.Element;
+  }[];
+  className?: string;
 }) => {
-  const [active, setActive] = useState<Tab>(propTabs[0]);
-  const [tabs, setTabs] = useState<Tab[]>(propTabs);
+  const { scrollYProgress } = useScroll();
 
-  const moveSelectedTabToTop = (idx: number) => {
-    const newTabs = [...propTabs];
-    const selectedTab = newTabs.splice(idx, 1);
-    newTabs.unshift(selectedTab[0]);
-    setTabs(newTabs);
-    setActive(newTabs[0]);
-  };
+  const [visible, setVisible] = useState(false);
 
-  const [hovering, setHovering] = useState(false);
+  useMotionValueEvent(scrollYProgress, "change", (current) => {
+    // Check if current is not undefined and is a number
+    if (typeof current === "number") {
+      let direction = current! - scrollYProgress.getPrevious()!;
+
+      if (scrollYProgress.get() < 0.05) {
+        setVisible(false);
+      } else {
+        if (direction < 0) {
+          setVisible(true);
+        } else {
+          setVisible(false);
+        }
+      }
+    }
+  });
 
   return (
-    <>
-      <div
+    <AnimatePresence mode="wait">
+      <motion.div
+        initial={{
+          opacity: 1,
+          y: -100,
+        }}
+        animate={{
+          y: visible ? 0 : -100,
+          opacity: visible ? 1 : 0,
+        }}
+        transition={{
+          duration: 0.2,
+        }}
         className={cn(
-          "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
-          containerClassName
+          "flex max-w-fit  fixed top-10 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] rounded-full dark:bg-black bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-2 pl-8 py-2  items-center justify-center space-x-4",
+          className
         )}
       >
-        {propTabs.map((tab, idx) => (
-          <button
-            key={tab.title}
-            onClick={() => {
-              moveSelectedTabToTop(idx);
-            }}
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
-            className={cn("relative px-4 py-2 rounded-full", tabClassName)}
-            style={{
-              transformStyle: "preserve-3d",
-            }}
-          >
-            {active.value === tab.value && (
-              <motion.div
-                layoutId="clickedbutton"
-                transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                className={cn(
-                  "absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full ",
-                  activeTabClassName
-                )}
-              />
+        {navItems.map((navItem: any, idx: number) => (
+          <Link
+            key={`link=${idx}`}
+            href={navItem.link}
+            className={cn(
+              "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
             )}
-
-            <span className="relative block text-black dark:text-white">
-              {tab.title}
-            </span>
-          </button>
+          >
+            <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
+              <span className="hidden sm:block text-sm">{navItem.name}</span>
+              <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
+            </button>
+            <span className="block sm:hidden">{navItem.icon}</span>
+          </Link>
         ))}
-      </div>
-      <FadeInDiv
-        tabs={tabs}
-        active={active}
-        key={active.value}
-        hovering={hovering}
-        className={cn("mt-32", contentClassName)}
-      />
-    </>
-  );
-};
-
-export const FadeInDiv = ({
-  className,
-  tabs,
-  hovering,
-}: {
-  className?: string;
-  key?: string;
-  tabs: Tab[];
-  active: Tab;
-  hovering?: boolean;
-}) => {
-  const isActive = (tab: Tab) => {
-    return tab.value === tabs[0].value;
-  };
-  return (
-    <div className="relative w-full h-full">
-      {tabs.map((tab, idx) => (
-        <motion.div
-          key={tab.value}
-          layoutId={tab.value}
-          style={{
-            scale: 1 - idx * 0.1,
-            top: hovering ? idx * -50 : 0,
-            zIndex: -idx,
-            opacity: idx < 3 ? 1 - idx * 0.1 : 0,
-          }}
-          animate={{
-            y: isActive(tab) ? [0, 40, 0] : 0,
-          }}
-          className={cn("w-full h-full absolute top-0 left-0", className)}
-        >
-          {tab.content}
-        </motion.div>
-      ))}
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };

@@ -5,14 +5,31 @@ import { HomeComp } from "@/components/home/HomeComp";
 import Image from "next/image";
 import gitImage from "../../public/images/Animation - 1717134917174.gif";
 
+import { IconHome, IconMessage, IconUser } from "@tabler/icons-react";
+import { FloatingNav } from "@/components/ui/TabsComponent";
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  if (typeof window !== "undefined") {
-    window.onload = (event) => {
-      setIsLoading(false);
-    };
-  }
+  const navItems = [
+    {
+      name: "Home",
+      link: "/",
+      icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
+    },
+    {
+      name: "Articles",
+      link: "/portfolio",
+      icon: <IconUser className="h-4 w-4 text-neutral-500 dark:text-white" />,
+    },
+  ];
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.onload = (event) => {
+        setIsLoading(false);
+      };
+    }
+  }, [isLoading]);
 
   return (
     <div className="flex items-center flex-col bg-black ">
@@ -26,7 +43,10 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <HomeComp />
+        <>
+          <FloatingNav navItems={navItems} />
+          <HomeComp />
+        </>
       )}
     </div>
   );

@@ -1,157 +1,169 @@
 "use client";
-import React from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  MotionValue,
-} from "framer-motion";
+
+import { useRef, useState } from "react";
 import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "../util/cn";
 
-export const HeroParallax = ({
-  products,
+export const DirectionAwareHover = ({
+  imageUrl,
+  children,
+  childrenClassName,
+  imageClassName,
+  className,
 }: {
-  products: {
-    title: string;
-    link: string;
-    thumbnail: StaticImageData;
-  }[];
+  imageUrl: StaticImageData;
+  children: React.ReactNode | string;
+  childrenClassName?: string;
+  imageClassName?: string;
+  className?: string;
 }) => {
-  const firstRow = products.slice(0, 5);
-  const secondRow = products.slice(5, 10);
-  const thirdRow = products.slice(10, 15);
-  const ref = React.useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  const ref = useRef<HTMLDivElement>(null);
 
-  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+  const [direction, setDirection] = useState<
+    "top" | "bottom" | "left" | "right" | string
+  >("left");
 
-  const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 1000]),
-    springConfig
-  );
-  const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
-    springConfig
-  );
-  const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
-    springConfig
-  );
-  const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
-    springConfig
-  );
-  const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
-    springConfig
-  );
-  const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
-    springConfig
-  );
-  return (
-    <div
-      ref={ref}
-      className="h-[300vh] bg-[#0e0e10] py-40 overflow-hidden sm:w-auto lg:w-[80rem] justify-center  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
-    >
-      <Header />
-      <motion.div
-        style={{
-          rotateX,
-          rotateZ,
-          translateY,
-          opacity,
-        }}
-        className=""
-      >
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20 mb-20">
-          {firstRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateX}
-              key={product.title}
-            />
-          ))}
-        </motion.div>
-        <motion.div className="flex flex-row  mb-20 space-x-20 ">
-          {secondRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateXReverse}
-              key={product.title}
-            />
-          ))}
-        </motion.div>
-        <motion.div className="flex flex-row-reverse space-x-reverse space-x-20">
-          {thirdRow.map((product) => (
-            <ProductCard
-              product={product}
-              translate={translateX}
-              key={product.title}
-            />
-          ))}
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-};
+  const handleMouseEnter = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    if (!ref.current) return;
 
-export const Header = () => {
-  return (
-    <div className="max-w-7xl bg-[#0e0e10] relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl text-white md:text-7xl font-bold">
-        My <br /> Portfolio
-      </h1>
-      <p className="max-w-2xl text-base  text-white md:text-xl mt-8">
-        From 404 to 200 OK: Chronicles of a Code Connoisseur
-      </p>
-    </div>
-  );
-};
+    const direction = getDirection(event, ref.current);
 
-export const ProductCard = ({
-  product,
-  translate,
-}: {
-  product: {
-    title: string;
-    link: string;
-    thumbnail: StaticImageData;
+    switch (direction) {
+      case 0:
+        setDirection("top");
+        break;
+      case 1:
+        setDirection("right");
+        break;
+      case 2:
+        setDirection("bottom");
+        break;
+      case 3:
+        setDirection("left");
+        break;
+      default:
+        setDirection("left");
+        break;
+    }
   };
-  translate: MotionValue<number>;
-}) => {
+
+  const getDirection = (
+    ev: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    obj: HTMLElement
+  ) => {
+    const { width: w, height: h, left, top } = obj.getBoundingClientRect();
+    const x = ev.clientX - left - (w / 2) * (w > h ? h / w : 1);
+    const y = ev.clientY - top - (h / 2) * (h > w ? w / h : 1);
+    const d = Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4;
+    return d;
+  };
+
   return (
     <motion.div
-      style={{
-        x: translate,
-      }}
-      whileHover={{
-        y: -20,
-      }}
-      key={product.title}
-      className="group/product h-96 w-[30rem] relative flex-shrink-0"
+      onMouseEnter={handleMouseEnter}
+      ref={ref}
+      className={cn(
+        "md:h-[18rem] w-60 h-60 md:w-[18rem] bg-transparent rounded-lg overflow-hidden group/card relative",
+        className
+      )}
     >
-      <Link
-        href={product.link}
-        className="block group-hover/product:shadow-2xl "
-      >
-        <Image
-          src={product.thumbnail}
-          height="600"
-          width="600"
-          className="object-cover object-left-top absolute h-full w-full inset-0"
-          alt={product.title}
-        />
-      </Link>
-      <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-[#0e0e10] pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
-        {product.title}
-      </h2>
+      <AnimatePresence mode="wait">
+        <motion.div
+          className="relative h-full w-full"
+          initial="initial"
+          whileHover={direction}
+          exit="exit"
+        >
+          <motion.div className="group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/50 z-10 transition duration-500" />
+          <motion.div
+            variants={variants}
+            className="h-full w-full relative bg-black"
+            transition={{
+              duration: 0.2,
+              ease: "easeOut",
+            }}
+          >
+            <Image
+              alt="image"
+              className={cn(
+                "h-full w-full object-cover scale-[1.15]",
+                imageClassName
+              )}
+              width="1000"
+              height="1000"
+              src={imageUrl}
+            />
+          </motion.div>
+          <motion.div
+            variants={textVariants}
+            transition={{
+              duration: 0.5,
+              ease: "easeOut",
+            }}
+            className={cn(
+              "text-white absolute bottom-4 left-4 z-40",
+              childrenClassName
+            )}
+          >
+            {children}
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
     </motion.div>
   );
+};
+
+const variants = {
+  initial: {
+    x: 0,
+  },
+
+  exit: {
+    x: 0,
+    y: 0,
+  },
+  top: {
+    y: 20,
+  },
+  bottom: {
+    y: -20,
+  },
+  left: {
+    x: 20,
+  },
+  right: {
+    x: -20,
+  },
+};
+
+const textVariants = {
+  initial: {
+    y: 0,
+    x: 0,
+    opacity: 0,
+  },
+  exit: {
+    y: 0,
+    x: 0,
+    opacity: 0,
+  },
+  top: {
+    y: -20,
+    opacity: 1,
+  },
+  bottom: {
+    y: 2,
+    opacity: 1,
+  },
+  left: {
+    x: -2,
+    opacity: 1,
+  },
+  right: {
+    x: 20,
+    opacity: 1,
+  },
 };
