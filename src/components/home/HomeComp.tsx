@@ -1,3 +1,4 @@
+import { TracingBeam } from "../ui/Tracking";
 import { GlowingStarsBackgroundCardComp } from "./AboutCard";
 import { Aboutme } from "./Aboutme";
 import { MovingBorderDemo } from "./Buttons";
@@ -13,6 +14,7 @@ import { HeroParallaxDemo } from "./projects";
 export const HomeComp = () => {
   return (
     <div className="flex flex-col rounded-2xl bg-[#0e0e10] justify-center items-center ">
+      {/* <TracingBeam> */}
       <div className={"bg-[#0e0e10]"}>
         <div className="bg-[#0e0e10] w-full flex  flex-col items-center">
           <SparklesPreview />
@@ -32,7 +34,8 @@ export const HomeComp = () => {
             <VortexComp />
           </div>
         </div>
-        <div className="container flex justify-center bg-white align-middle  sm:hidden md:block ">
+        <div>
+          <div className="text-white">Portfolio goes here</div>
           <HeroParallaxDemo />
         </div>
         <GoogleGeminiEffectComponent />
@@ -56,6 +59,7 @@ export const HomeComp = () => {
           </div>
         </div>
       </div>
+      {/* </TracingBeam> */}
     </div>
   );
 };
