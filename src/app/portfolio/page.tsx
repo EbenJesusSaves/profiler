@@ -4,6 +4,7 @@ import React from "react";
 import { faker } from "@faker-js/faker";
 import { FloatingNav } from "@/components/ui/TabsComponent";
 import { navItems } from "@/components/util/navList";
+import { HoverEffect } from "@/components/ui/CardHoverEffect";
 const page = () => {
   function generateArticles(count: number): CardProps[] {
     const articles: CardProps[] = [];
@@ -38,7 +39,7 @@ const page = () => {
           Ensure some Chilly Cool Articles ✨🧐{" "}
         </div>
         {/* <BackgroundBeams className="bg-black" /> */}
-        <div className="container flex flex-wrap justify-between items-center mt-20">
+        {/* <div className="container flex flex-wrap justify-between items-center mt-20">
           {articles.map((item) => (
             <Card
               key={item.title}
@@ -49,6 +50,9 @@ const page = () => {
               imageURl={item.imageURl}
             />
           ))}
+        </div> */}
+        <div className="max-w-5xl mx-auto px-8">
+          <HoverEffect items={articles} />
         </div>
       </div>
     </div>
