@@ -56,7 +56,7 @@ export const TextRevealCard = ({
       onMouseMove={mouseMoveHandler}
       ref={cardRef}
       className={cn(
-        "bg-[#0e0e10]  w-[40rem] rounded-lg p-8 relative overflow-hidden",
+        "bg-[#000000]  w-[40rem] rounded-lg p-8 relative overflow-hidden",
         className
       )}
     >
@@ -78,7 +78,7 @@ export const TextRevealCard = ({
                 }
           }
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
-          className="absolute bg-[#1d1c20] z-20  will-change-transform"
+          className="absolute bg-[#0b0a0c] z-20  will-change-transform"
         >
           <p
             style={{

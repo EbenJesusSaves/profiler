@@ -13,15 +13,12 @@ import {
 
 export function TextRevealCardPreview() {
   return (
-    <div className="flex items-center justify-center bg-[#0e0e10] h-[15rem]  w-full">
-      <TextRevealCard
-        text="You know the business"
-        revealText="I know the chemistry "
-      >
+    <div className="flex items-center justify-center flex-col bg-[#0e0e10]  w-full">
+      <>
         <TextRevealCardTitle className="justify-center text-center">
           A creative software Engineer.
         </TextRevealCardTitle>
-        <TextRevealCardDescription className="text-center">
+        <TextRevealCardDescription className="text-center w-[45rem]">
           {`Ebenezer is React Native and React Developer with over 4
             years of experience in building mobile and web apps. Currently, Ebenezer
             works as a Frontend developer at Jotella Media Group (Toronto Canada, Remote), where he builds performant mobile and web apps with
@@ -36,7 +33,11 @@ export function TextRevealCardPreview() {
             MongoDB, Postgres SQL, UI/UX designing, data mining, JavaScript, and
             Python/Java/R.`}
         </TextRevealCardDescription>
-      </TextRevealCard>
+      </>{" "}
+      <TextRevealCard
+        text="You know the business"
+        revealText="I know the chemistry "
+      />
     </div>
   );
 }

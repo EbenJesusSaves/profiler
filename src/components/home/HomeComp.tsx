@@ -21,7 +21,7 @@ export const HomeComp = () => {
           <div className="flex justify-center flex-wrap-reverse lg:flex-nowrap">
             <div>
               <TextRevealCardPreview />
-              <div className="w-full bg-black mt-[8rem] flex flex-row gap-5 items-center justify-center">
+              <div className="w-full bg-black mt-[4rem] flex flex-row gap-5 items-center justify-center">
                 <MovingBorderDemo text={"download CV"} />
                 <MovingBorderDemo text={"contact me"} />
               </div>
