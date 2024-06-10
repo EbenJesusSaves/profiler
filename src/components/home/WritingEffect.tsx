@@ -1,35 +1,17 @@
 "use client";
 
-import { TypewriterEffectSmooth } from "../ui/TextWritter";
+import { FlipWords } from "../ui/TextWritter";
 
 export function TypewriterEffectSmoothDemo() {
-  const words = [
-    {
-      text: "What",
-    },
-    {
-      text: "is",
-    },
-    {
-      text: "in",
-    },
-    {
-      text: "my",
-    },
-    {
-      text: "ToolBox",
-    },
-    {
-      text: "🛠️Treasures.",
-      className: "text-blue-500 dark:text-blue-500",
-    },
-  ];
+  const words = ["ToolBox?", "Treasures."];
   return (
-    <div className="flex flex-col items-center justify-center h-[10rem]  ">
+    <div className="flex flex-col items-center mt-[4rem] justify-center h-[10rem]  ">
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
         The road to freedom starts from here
       </p>
-      <TypewriterEffectSmooth words={words} />
+      <div className="text-white font-black text-[4rem]">
+        What is in my <FlipWords words={words} />
+      </div>
     </div>
   );
 }
