@@ -56,6 +56,7 @@ const CloudinaryScriptContext = createContext({});
 function CloudinaryUploadWidget({ uwConfig, setImageLink }: CloundinaryConf) {
   const [loaded, setLoaded] = useState(false);
 
+  console.log("j");
   useEffect(() => {
     if (!loaded) {
       const uwScript = document.getElementById("uw");
@@ -93,17 +94,7 @@ function CloudinaryUploadWidget({ uwConfig, setImageLink }: CloundinaryConf) {
     }
   };
 
-  return (
-    <CloudinaryScriptContext.Provider value={{ loaded }}>
-      <button
-        id="upload_widget"
-        className="cloudinary-button"
-        onClick={initializeCloudinaryWidget}
-      >
-        Upload
-      </button>
-    </CloudinaryScriptContext.Provider>
-  );
+  return { initializeCloudinaryWidget, loaded };
 }
 
 export default CloudinaryUploadWidget;

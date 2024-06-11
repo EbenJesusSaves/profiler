@@ -1,7 +1,7 @@
 "use client";
 
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import CloudinaryUploadWidget from "./cWidject";
+import CloudinaryUploadWidget, { CloudinaryScriptContext } from "./cWidject";
 import { Cloudinary } from "@cloudinary/url-gen";
 import parse from "html-react-parser";
 import "quill/dist/quill.snow.css";
@@ -19,17 +19,42 @@ interface CounterOptions {
 
 const RichTextEditor = ({ prevContent }: Props) => {
   const counterRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
+
+  //============== clouldnary staff
+  const [imageLink, setImageLink] = useState("");
+  const [uploadPreset] = useState("halumx55");
+  const cloudName = "djzn1iixv";
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: "djzn1iixv",
+    },
+  });
+
+  const [uwConfig] = useState({
+    cloudName,
+    uploadPreset,
+  });
+
+  useEffect(() => {
+    if (!imageLink) return;
+    insertImage(imageLink);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageLink]);
+
+  const { initializeCloudinaryWidget, loaded } = CloudinaryUploadWidget({
+    uwConfig,
+    setImageLink,
+  });
+
   const theme = "snow";
   const { quill, quillRef, Quill } = useQuill({
     modules: {
       theme,
       counter: true,
-      toolbar: "#toolbar",
-      handlers: {
+      toolbar: {
+        container: "#toolbar",
         handlers: {
-          image: function () {
-            alert("Custom button clicked!");
-          },
+          image: initializeCloudinaryWidget,
         },
       },
     },
@@ -67,26 +92,6 @@ const RichTextEditor = ({ prevContent }: Props) => {
     }
   };
 
-  //============== clouldnary staff
-  const [imageLink, setImageLink] = useState("");
-  const [uploadPreset] = useState("halumx55");
-  const cloudName = "djzn1iixv";
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: "djzn1iixv",
-    },
-  });
-
-  const [uwConfig] = useState({
-    cloudName,
-    uploadPreset,
-  });
-
-  useEffect(() => {
-    if (!imageLink) return;
-    insertImage(imageLink);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imageLink]);
   return (
     <>
       <div style={{ height: 600, width: 800 }}>
@@ -117,22 +122,11 @@ const RichTextEditor = ({ prevContent }: Props) => {
           </select>
           <button className="ql-link">Link</button>
           <button className="ql-clean">Clean</button>
-          <button className="ql-image">hii</button>
+          <CloudinaryScriptContext.Provider value={{ loaded }}>
+            <button id="upload_widget" className="ql-image"></button>
+          </CloudinaryScriptContext.Provider>
           <button className="ql-video">Video</button>
-          <div
-            style={{
-              backgroundColor: "pink",
-              width: 30,
-              zIndex: 4000,
-              position: "absolute",
-              left: 700,
-            }}
-          >
-            <CloudinaryUploadWidget
-              uwConfig={uwConfig}
-              setImageLink={setImageLink}
-            />
-          </div>
+          <div></div>
         </div>
         <div ref={quillRef} />
         <div ref={counterRef} />

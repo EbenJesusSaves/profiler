@@ -1,4 +1,4 @@
-import { Card, CardProps } from "@/components/articles/card";
+import { CardProps } from "@/components/articles/card";
 import { BackgroundBeams } from "@/components/ui/backgroundBeam";
 import React from "react";
 import { faker } from "@faker-js/faker";
