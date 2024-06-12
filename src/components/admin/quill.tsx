@@ -1,7 +1,13 @@
 "use client";
 
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import CloudinaryUploadWidget, { CloudinaryScriptContext } from "./cWidject";
+import React, {
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+  createContext,
+} from "react";
+import CloudinaryUploadWidget from "./cWidject";
 import { Cloudinary } from "@cloudinary/url-gen";
 import parse from "html-react-parser";
 import "quill/dist/quill.snow.css";
@@ -16,7 +22,7 @@ interface Props {
 interface CounterOptions {
   maxCount: number;
 }
-
+const CloudinaryScriptContext = createContext({});
 const RichTextEditor = ({ prevContent }: Props) => {
   const counterRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
 
@@ -45,7 +51,6 @@ const RichTextEditor = ({ prevContent }: Props) => {
     uwConfig,
     setImageLink,
   });
-
   const theme = "snow";
   const { quill, quillRef, Quill } = useQuill({
     modules: {
@@ -136,3 +141,4 @@ const RichTextEditor = ({ prevContent }: Props) => {
 };
 
 export default RichTextEditor;
+export { CloudinaryScriptContext };

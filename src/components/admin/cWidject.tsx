@@ -55,8 +55,6 @@ const CloudinaryScriptContext = createContext({});
 
 function CloudinaryUploadWidget({ uwConfig, setImageLink }: CloundinaryConf) {
   const [loaded, setLoaded] = useState(false);
-
-  console.log("j");
   useEffect(() => {
     if (!loaded) {
       const uwScript = document.getElementById("uw");
@@ -75,7 +73,7 @@ function CloudinaryUploadWidget({ uwConfig, setImageLink }: CloundinaryConf) {
 
   const initializeCloudinaryWidget = () => {
     if (loaded) {
-      var myWidget = window?.cloudinary.createUploadWidget(
+      const myWidget = window?.cloudinary.createUploadWidget(
         uwConfig,
         (error: CloudinaryError, result: IUploadResult) => {
           if (!error && result && result.event === "success") {
@@ -83,14 +81,14 @@ function CloudinaryUploadWidget({ uwConfig, setImageLink }: CloundinaryConf) {
           }
         }
       );
-
-      document?.getElementById("upload_widget")?.addEventListener(
-        "click",
-        function () {
-          myWidget.open();
-        },
-        false
-      );
+      const openWidgetWrapper = (() => {
+        const widget = myWidget;
+        return () => widget.open();
+      })();
+      const uploadWidgetElement = document.getElementById("upload_widget");
+      uploadWidgetElement?.addEventListener("click", openWidgetWrapper, {
+        once: true,
+      });
     }
   };
 
@@ -98,4 +96,3 @@ function CloudinaryUploadWidget({ uwConfig, setImageLink }: CloundinaryConf) {
 }
 
 export default CloudinaryUploadWidget;
-export { CloudinaryScriptContext };
