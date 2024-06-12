@@ -51,8 +51,6 @@ interface IUploadResult {
   };
 }
 
-const CloudinaryScriptContext = createContext({});
-
 function CloudinaryUploadWidget({ uwConfig, setImageLink }: CloundinaryConf) {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {

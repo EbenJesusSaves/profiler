@@ -99,7 +99,7 @@ const RichTextEditor = ({ prevContent }: Props) => {
 
   return (
     <>
-      <div style={{ height: 600, width: 800 }}>
+      <div style={{ height: 800, width: 900 }}>
         <div id="toolbar" style={{ position: "relative" }}>
           <button className="ql-bold">Bold</button>
           <button className="ql-italic">Italic</button>
