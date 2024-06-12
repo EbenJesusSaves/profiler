@@ -83,8 +83,21 @@ function CloudinaryUploadWidget({ uwConfig, setImageLink }: CloundinaryConf) {
         const widget = myWidget;
         return () => widget.open();
       })();
+      const openWidgetWrapper1 = (() => {
+        const widget = myWidget;
+        return () => widget.open();
+      })();
       const uploadWidgetElement = document.getElementById("upload_widget");
+
+      const uploadWidgetElement1 = document.getElementById("upload_widget1");
+      uploadWidgetElement1?.removeEventListener("click", openWidgetWrapper);
+      uploadWidgetElement?.removeEventListener("click", openWidgetWrapper1);
+
       uploadWidgetElement?.addEventListener("click", openWidgetWrapper, {
+        once: true,
+      });
+      uploadWidgetElement1?.removeEventListener("click", openWidgetWrapper1);
+      uploadWidgetElement1?.addEventListener("click", openWidgetWrapper1, {
         once: true,
       });
     }
