@@ -1,19 +1,15 @@
 "use client";
 import RichTextEditor from "@/components/admin/quill";
-import { LabelInputContainer } from "@/components/home/Forms";
-import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
-import { Box, Divider, Group, Text, Timeline } from "@mantine/core";
-import {
-  IconHome,
-  IconSearch,
-  IconTags,
-  IconTournament,
-} from "@tabler/icons-react";
+import { Text, Timeline } from "@mantine/core";
+import { IconHome, IconTags, IconTournament } from "@tabler/icons-react";
 
-import React from "react";
+import { auth } from "../auth";
+import { redirect } from "next/navigation";
 
-const page = () => {
+const page = async () => {
+  const session = await auth();
+  if (!session) return redirect("/api/auth/signin");
+
   return (
     <div className="  flex flex-col mx-60 ">
       <div className="flex  justify-around flex-wrap">

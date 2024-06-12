@@ -1,6 +1,6 @@
 "use client";
 
-import React, {
+import {
   MutableRefObject,
   useEffect,
   useRef,
@@ -8,8 +8,6 @@ import React, {
   createContext,
 } from "react";
 import CloudinaryUploadWidget from "./cWidject";
-import { Cloudinary } from "@cloudinary/url-gen";
-import parse from "html-react-parser";
 import "quill/dist/quill.snow.css";
 
 import { useQuill } from "react-quilljs";
@@ -37,11 +35,12 @@ const RichTextEditor = ({ prevContent }: Props) => {
   const [title, setTitle] = useState("");
   const [uploadPreset] = useState("halumx55");
   const cloudName = "djzn1iixv";
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: "djzn1iixv",
-    },
-  });
+
+  // const cld = new Cloudinary({
+  //   cloud: {
+  //     cloudName: "djzn1iixv",
+  //   },
+  // });
 
   const [uwConfig] = useState({
     cloudName,
@@ -102,14 +101,19 @@ const RichTextEditor = ({ prevContent }: Props) => {
   const insertImage = (file: string) => {
     const range = quill?.getSelection(true);
     if (range) {
-      quill?.insertText(range.index, file);
-      quill?.formatText(range.index, file.length, "link", file);
+      quill?.insertEmbed(range.index, "image", file, Quill.sources.USER);
     }
   };
 
   const openTitleImage = () => {
     setCaller("title");
     initializeCloudinaryWidget();
+  };
+  console.log(content);
+
+  const post = async () => {
+    try {
+    } catch (error) {}
   };
   return (
     <div className="">
