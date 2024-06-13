@@ -18,7 +18,7 @@ export function TextRevealCardPreview() {
         <TextRevealCardTitle className="justify-center text-center">
           A creative software Engineer.
         </TextRevealCardTitle>
-        <TextRevealCardDescription className="text-center w-[45rem]">
+        <TextRevealCardDescription className="text-center sm:w-[10rem] md:w-[45rem]">
           {`Ebenezer is React Native and React Developer with over 4
             years of experience in building mobile and web apps. Currently, Ebenezer
             works as a Frontend developer at Jotella Media Group (Toronto Canada, Remote), where he builds performant mobile and web apps with
@@ -34,10 +34,12 @@ export function TextRevealCardPreview() {
             Python/Java/R.`}
         </TextRevealCardDescription>
       </>{" "}
-      <TextRevealCard
-        text="You know the business"
-        revealText="I know the chemistry "
-      />
+      <div className="hidden md:block">
+        <TextRevealCard
+          text="You know the business"
+          revealText="I know the chemistry "
+        />
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { IoFolderOpenOutline } from "react-icons/io5";
 
 export const Aboutme = () => {
   return (
-    <div className="w-full mt-[5rem] bg-black flex flex-col items-center justify-center ">
+    <div className="w-[20rem] md:w-full mt-[5rem] bg-black flex flex-col items-center justify-center ">
       <div className="h-[10rem] w-full mt-[10rem] bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
         <h1 className="md:text-5xl text-3xl lg:text-5xl font-bold text-center text-white relative z-20">
           Work History

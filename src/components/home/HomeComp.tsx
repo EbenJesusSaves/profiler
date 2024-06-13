@@ -20,7 +20,7 @@ export const HomeComp = () => {
         <div className="bg-[#0e0e10] w-full flex  flex-col items-center">
           <SparklesPreview />
           <div className="flex justify-center flex-wrap-reverse lg:flex-nowrap">
-            <div>
+            <div className="w-[25rem] md:w-full">
               <TextRevealCardPreview />
               <div className="w-full bg-black mt-[4rem] flex flex-row gap-5 items-center justify-center">
                 <MovingBorderDemo text={"download CV"} />
@@ -37,11 +37,11 @@ export const HomeComp = () => {
           </div>
         </div>
         <div>
-          <div className="text-white">Portfolio goes here</div>
+          <div className="text-white hidden md:block">Portfolio goes here</div>
           <HeroParallaxDemo />
         </div>
         <GoogleGeminiEffectComponent />
-        <div className="container flex justify-center sm:flex-row  items-center bg-black w-full">
+        <div className="container flex justify-center flex-col md:flex-row items-center bg-black w-full">
           <div className="">
             <GlowingStarsBackgroundCardComp
               title="Email"

@@ -15,8 +15,12 @@ const Experience = () => {
       size={"xl"}
       style={{ display: "flex", justifyContent: "center" }}
     >
-      <Grid justify="space-between" align="flex-start">
-        <Grid.Col span={4}>
+      <Grid
+        justify="space-between"
+        style={{ flexWrap: "wrap" }}
+        align="flex-start"
+      >
+        <Grid.Col span={{ sm: 10, md: 6, lg: 4 }}>
           <Timeline active={1} bulletSize={24} lineWidth={1}>
             <Timeline.Item
               bullet={<IconGitBranch size={12} />}
@@ -185,7 +189,7 @@ const Experience = () => {
             ></Timeline.Item>
           </Timeline>
         </Grid.Col>
-        <Grid.Col span={4}>
+        <Grid.Col span={{ sm: 10, md: 6, lg: 4 }}>
           <Timeline active={1} bulletSize={24} lineWidth={1}>
             <Timeline.Item
               bullet={<IconGitBranch size={12} />}
@@ -311,10 +315,9 @@ const Experience = () => {
           </Timeline>
         </Grid.Col>
         <Grid.Col
-          span={4}
+          span={{ sm: 10, md: 6, lg: 4 }}
           style={{
             display: "flex",
-            justifyContent: "flex-end",
           }}
         >
           <Timeline active={1} bulletSize={24} lineWidth={1}>
