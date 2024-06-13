@@ -304,14 +304,8 @@ const Experience = () => {
               <Text c="dimmed" size="sm">
                 Redux, Form milk, Chart Js, Jest, Auth.js, tailwind, <br />{" "}
                 Material UI, Mantine UI, bootstrap, Rechart, <br /> Quill Js,
-                Framer Motions, React Calendar, stripe, <br />
-                Axios, Tostify, react-pdf, etc.
-                <Text variant="link" component="span" inherit>
-                  Fix incorrect notification message (#187)
-                </Text>
-              </Text>
-              <Text size="xs" mt={4}>
-                34 minutes ago
+                Framer Motions, React Calendar, stripe, Axios, Tostify,
+                react-pdf, etc.
               </Text>
             </Timeline.Item>
           </Timeline>
@@ -496,9 +490,7 @@ const Experience = () => {
                   Git, Github
                 </Text>
               </Text>
-              <Text size="xs" mt={4}>
-                34 minutes ago
-              </Text>
+              <Text size="xs" mt={4}></Text>
             </Timeline.Item>
           </Timeline>
         </Grid.Col>
