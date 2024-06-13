@@ -15,6 +15,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        "custom-blue": "rgba(9, 55, 182, 0.2419)",
+      },
+
       animation: {
         "meteor-effect": "meteor 5s linear infinite",
         scroll:

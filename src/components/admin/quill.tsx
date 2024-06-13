@@ -1,13 +1,18 @@
 "use client";
 
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import {
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+  createContext,
+} from "react";
 import CloudinaryUploadWidget from "./cWidject";
-import { Cloudinary } from "@cloudinary/url-gen";
-import parse from "html-react-parser";
 import "quill/dist/quill.snow.css";
 
 import { useQuill } from "react-quilljs";
 import Quill from "quill";
+import { TagsInput } from "@mantine/core";
 
 interface Props {
   prevContent?: string;
@@ -17,18 +22,52 @@ interface CounterOptions {
   maxCount: number;
 }
 
+type Caller = "editor" | "title";
+
+const CloudinaryScriptContext = createContext({});
+const CloudinaryScriptContext1 = createContext({});
 const RichTextEditor = ({ prevContent }: Props) => {
   const counterRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
+
+  //============== clouldnary staff
+  const [imageLink, setImageLink] = useState("");
+  const [caller, setCaller] = useState<Caller>("editor");
+  const [title, setTitle] = useState("");
+  const [uploadPreset] = useState("halumx55");
+  const cloudName = "djzn1iixv";
+
+  // const cld = new Cloudinary({
+  //   cloud: {
+  //     cloudName: "djzn1iixv",
+  //   },
+  // });
+
+  const [uwConfig] = useState({
+    cloudName,
+    uploadPreset,
+  });
+
+  useEffect(() => {
+    if (!imageLink || caller === "title") return;
+    insertImage(imageLink);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageLink]);
+
+  const { initializeCloudinaryWidget, loaded } = CloudinaryUploadWidget({
+    uwConfig,
+    setImageLink,
+  });
   const theme = "snow";
   const { quill, quillRef, Quill } = useQuill({
     modules: {
       theme,
       counter: true,
-      toolbar: "#toolbar",
-      handlers: {
+      toolbar: {
+        container: "#toolbar",
         handlers: {
-          image: function () {
-            alert("Custom button clicked!");
+          image: () => {
+            setCaller("editor");
+            initializeCloudinaryWidget();
           },
         },
       },
@@ -62,34 +101,47 @@ const RichTextEditor = ({ prevContent }: Props) => {
   const insertImage = (file: string) => {
     const range = quill?.getSelection(true);
     if (range) {
-      quill?.insertText(range.index, file);
-      quill?.formatText(range.index, file.length, "link", file);
+      quill?.insertEmbed(range.index, "image", file, Quill.sources.USER);
     }
   };
 
-  //============== clouldnary staff
-  const [imageLink, setImageLink] = useState("");
-  const [uploadPreset] = useState("halumx55");
-  const cloudName = "djzn1iixv";
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: "djzn1iixv",
-    },
-  });
+  const openTitleImage = () => {
+    setCaller("title");
+    initializeCloudinaryWidget();
+  };
+  console.log(content);
 
-  const [uwConfig] = useState({
-    cloudName,
-    uploadPreset,
-  });
-
-  useEffect(() => {
-    if (!imageLink) return;
-    insertImage(imageLink);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [imageLink]);
+  const post = async () => {
+    try {
+    } catch (error) {}
+  };
   return (
-    <>
-      <div style={{ height: 600, width: 800 }}>
+    <div className="">
+      <div>
+        <CloudinaryScriptContext.Provider value={{ loaded }}>
+          <button
+            id="upload_widget"
+            onClick={openTitleImage}
+            className="px-4 py-2 mt-10 rounded-md border border-neutral-300 bg-neutral-100 text-neutral-500 text-sm hover:-translate-y-1 transform transition duration-200 hover:shadow-md"
+          >
+            Add a cover picture
+          </button>
+        </CloudinaryScriptContext.Provider>
+      </div>
+      <input
+        onChange={(e) => setTitle(e.target.value)}
+        type="text"
+        className="text-6xl font-black border-solid border-gray-300 border w-[100%] my-5"
+        placeholder="New Post Title here..."
+      />
+      <div className="mb-5">
+        <TagsInput
+          label="Press Enter to submit a tag"
+          mb="md"
+          placeholder="Enter tag"
+        />
+      </div>
+      <div style={{ height: 750, width: 900 }}>
         <div id="toolbar" style={{ position: "relative" }}>
           <button className="ql-bold">Bold</button>
           <button className="ql-italic">Italic</button>
@@ -117,28 +169,18 @@ const RichTextEditor = ({ prevContent }: Props) => {
           </select>
           <button className="ql-link">Link</button>
           <button className="ql-clean">Clean</button>
-          <button className="ql-image">hii</button>
+          <CloudinaryScriptContext.Provider value={{ loaded }}>
+            <button id="upload_widget1" className="ql-image"></button>
+          </CloudinaryScriptContext.Provider>
           <button className="ql-video">Video</button>
-          <div
-            style={{
-              backgroundColor: "pink",
-              width: 30,
-              zIndex: 4000,
-              position: "absolute",
-              left: 700,
-            }}
-          >
-            <CloudinaryUploadWidget
-              uwConfig={uwConfig}
-              setImageLink={setImageLink}
-            />
-          </div>
+          <div></div>
         </div>
         <div ref={quillRef} />
         <div ref={counterRef} />
       </div>
-    </>
+    </div>
   );
 };
 
 export default RichTextEditor;
+export { CloudinaryScriptContext, CloudinaryScriptContext1 };

@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { HomeComp } from "@/components/home/HomeComp";
 import Image from "next/image";
 import gitImage from "../../public/images/Animation - 1717134917174.gif";
-
 import { FloatingNav } from "@/components/ui/TabsComponent";
 import { navItems } from "@/components/util/navList";
 
@@ -35,10 +34,10 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <>
+        <div>
           <FloatingNav navItems={navItems} />
           <HomeComp />
-        </>
+        </div>
       )}
     </div>
   );

@@ -12,7 +12,7 @@ import { DirectionAwareHover } from "../ui/movingPages";
 
 export function HeroParallaxDemo() {
   return (
-    <div className="container flex flex-wrap gap-5">
+    <div className="container hidden md:flex flex-wrap gap-5">
       {products.map((item) => (
         <div
           key={item.title}

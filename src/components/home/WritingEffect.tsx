@@ -9,7 +9,7 @@ export function TypewriterEffectSmoothDemo() {
       <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
         The road to freedom starts from here
       </p>
-      <div className="text-white font-black text-[4rem]">
+      <div className="text-white font-black text-[1.5rem] md:text-[4rem]">
         What is in my <FlipWords words={words} />
       </div>
     </div>
