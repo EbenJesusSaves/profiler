@@ -1,11 +1,10 @@
-"use-client";
-import signIn from "next-auth/react";
+import { signIn } from "./authHlelper";
 
 export function SignIn() {
   return (
     <form
       action={async (formData) => {
-        await signIn("credentials", formData);
+        await signIn();
       }}
     >
       <label>
