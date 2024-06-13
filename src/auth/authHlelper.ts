@@ -1,10 +1,10 @@
-"use server";
-import { signIn as naSignIn, signOut as naSignOut } from "./auth";
+// "use server";
+// import { signIn as naSignIn, signOut as naSignOut } from "./auth";
 
-export async function signIn() {
-  await naSignIn();
-}
+// export async function signIn() {
+//   await naSignIn();
+// }
 
-export async function signOut() {
-  await naSignOut();
-}
+// export async function signOut() {
+//   await naSignOut();
+// }
