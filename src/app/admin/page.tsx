@@ -3,12 +3,12 @@ import RichTextEditor from "@/components/admin/quill";
 import { Text, Timeline } from "@mantine/core";
 import { IconHome, IconTags, IconTournament } from "@tabler/icons-react";
 
-import { auth } from "../../auth/auth";
-import { redirect } from "next/navigation";
+// import { auth } from "../../auth/auth";
+// import { redirect } from "next/navigation";
 
 const page = async () => {
-  const session = await auth();
-  if (!session) return redirect("/api/auth/signin");
+  // const session = await auth();
+  // if (!session) return redirect("/api/auth/signin");
 
   return (
     <div className="  flex flex-col mx-60 ">
