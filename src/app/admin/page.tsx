@@ -3,7 +3,7 @@ import RichTextEditor from "@/components/admin/quill";
 import { Text, Timeline } from "@mantine/core";
 import { IconHome, IconTags, IconTournament } from "@tabler/icons-react";
 
-import { auth } from "../auth";
+import { auth } from "../../auth/auth";
 import { redirect } from "next/navigation";
 
 const page = async () => {

@@ -3,6 +3,7 @@ import { GlowingStarsBackgroundCardComp } from "./AboutCard";
 import { Aboutme } from "./Aboutme";
 import { MovingBorderDemo } from "./Buttons";
 import { GoogleGeminiEffectComponent } from "./ColorsScrollEffect";
+import Experience from "./Experience";
 import { GetInTouch } from "./Forms";
 import { VortexComp } from "./RandomNoice";
 import { SparklesPreview } from "./Sparkles";
@@ -30,6 +31,7 @@ export const HomeComp = () => {
           <Aboutme />
           <div className="flex flex-col  container max-width-2xl justify-center items-center">
             <TypewriterEffectSmoothDemo />
+            <Experience />
             <InfiniteMovingCardsDemo />
             <VortexComp />
           </div>

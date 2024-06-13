@@ -1,7 +1,3 @@
-import { handlers } from "@/app/auth";
-type Credentials = {
-  username: string;
-  password: string;
-};
+import { handlers } from "@/auth/auth";
 
 export const { GET, POST } = handlers;
