@@ -12,15 +12,14 @@ export const authOptions: NextAuthConfig = {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials): Promise<any | null> {
+      async authorize(credentials): Promise<User | null> {
         console.log(credentials);
         try {
           const {
             data: { data },
           } = await plainApi.post("/signin", credentials);
-          const user = data;
-          console.log(user);
-          return data;
+
+          return { name: data.username, email: data.email, token: data.token };
         } catch (error) {
           throw new Error(" there is no user found");
         }
@@ -28,9 +27,21 @@ export const authOptions: NextAuthConfig = {
     }),
   ],
 
+  session: {
+    strategy: "jwt",
+  },
+
   callbacks: {
+    async jwt({ token, user, account, session, trigger }) {
+      console.log(token, user, account, session, trigger);
+      if (user) {
+        return { ...token, ...user };
+      }
+      return token;
+    },
+
     async session({ session, token, user }) {
-      session.user = { ...session.user, ...user };
+      session = { ...token, ...session, ...user };
       return session;
     },
   },
