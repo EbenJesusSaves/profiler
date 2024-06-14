@@ -3,7 +3,6 @@
 import Image, { StaticImageData } from "next/image";
 import { cn } from "../util/cn";
 import React, { useEffect, useState } from "react";
-import { Button } from "./CoolBtn";
 
 export const InfiniteMovingCards = ({
   items,
