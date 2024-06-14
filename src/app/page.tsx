@@ -6,12 +6,10 @@ import Image from "next/image";
 import gitImage from "../../public/images/Animation - 1717134917174.gif";
 import { FloatingNav } from "@/components/ui/TabsComponent";
 import { navItems } from "@/components/util/navList";
-import AuthButton from "./AuthClient";
-import { useSession } from "next-auth/react";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const session = useSession();
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       if (document.readyState === "complete") {

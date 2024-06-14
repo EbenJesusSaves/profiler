@@ -13,7 +13,6 @@ export const authOptions: NextAuthConfig = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials): Promise<User | null> {
-        console.log(credentials);
         try {
           const {
             data: { data },
@@ -21,7 +20,7 @@ export const authOptions: NextAuthConfig = {
 
           return { name: data.username, email: data.email, token: data.token };
         } catch (error) {
-          throw new Error(" there is no user found");
+          throw new Error("Error");
         }
       },
     }),
@@ -32,8 +31,7 @@ export const authOptions: NextAuthConfig = {
   },
 
   callbacks: {
-    async jwt({ token, user, account, session, trigger }) {
-      console.log(token, user, account, session, trigger);
+    async jwt({ token, user }) {
       if (user) {
         return { ...token, ...user };
       }

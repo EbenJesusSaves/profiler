@@ -12,7 +12,8 @@ import "quill/dist/quill.snow.css";
 
 import { useQuill } from "react-quilljs";
 import Quill from "quill";
-import { TagsInput } from "@mantine/core";
+import { TagsInput, Button } from "@mantine/core";
+import base from "@/axios/baseApi";
 
 interface Props {
   prevContent?: string;
@@ -32,15 +33,10 @@ const RichTextEditor = ({ prevContent }: Props) => {
   //============== clouldnary staff
   const [imageLink, setImageLink] = useState("");
   const [caller, setCaller] = useState<Caller>("editor");
+  const [tag, setTag] = useState<string[]>([]);
   const [title, setTitle] = useState("");
   const [uploadPreset] = useState("halumx55");
   const cloudName = "djzn1iixv";
-
-  // const cld = new Cloudinary({
-  //   cloud: {
-  //     cloudName: "djzn1iixv",
-  //   },
-  // });
 
   const [uwConfig] = useState({
     cloudName,
@@ -109,12 +105,24 @@ const RichTextEditor = ({ prevContent }: Props) => {
     setCaller("title");
     initializeCloudinaryWidget();
   };
-  console.log(content);
 
   const post = async () => {
+    console.log("hii");
+
+    const bod = {
+      title,
+      image: imageLink,
+      body: content,
+      tags: tag,
+    };
     try {
-    } catch (error) {}
+      const { data } = await base.post("/admin/post", JSON.stringify(bod));
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <div className="">
       <div>
@@ -138,10 +146,11 @@ const RichTextEditor = ({ prevContent }: Props) => {
         <TagsInput
           label="Press Enter to submit a tag"
           mb="md"
+          onChange={setTag}
           placeholder="Enter tag"
         />
       </div>
-      <div style={{ height: 750, width: 900 }}>
+      <div style={{ height: 650, width: 900 }}>
         <div id="toolbar" style={{ position: "relative" }}>
           <button className="ql-bold">Bold</button>
           <button className="ql-italic">Italic</button>
@@ -177,6 +186,10 @@ const RichTextEditor = ({ prevContent }: Props) => {
         </div>
         <div ref={quillRef} />
         <div ref={counterRef} />
+      </div>
+
+      <div>
+        <Button onClick={post}> Submit </Button>
       </div>
     </div>
   );

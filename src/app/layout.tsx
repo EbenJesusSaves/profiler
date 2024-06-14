@@ -3,8 +3,6 @@ import "@mantine/core/styles.css";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { MantineProvider } from "@mantine/core";
-import getServerSession from "next-auth/next";
-import { authOptions } from "@/auth/auth";
 import { auth, BASE_PATH } from "@/auth/auth";
 import { SessionProvider } from "next-auth/react";
 const inter = Inter({ subsets: ["latin"] });
@@ -17,13 +15,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const session = await auth();
-  if (session && session.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-    };
-  }
+  let session = await auth();
 
   return (
     <html lang="en">

@@ -2,16 +2,10 @@
 import RichTextEditor from "@/components/admin/quill";
 import { Text, Timeline } from "@mantine/core";
 import { IconHome, IconTags, IconTournament } from "@tabler/icons-react";
-import { useSession } from "next-auth/react";
-// import { auth } from "../../auth/auth";
-// import { redirect } from "next/navigation";
 
 const Page = () => {
-  const session = useSession();
-
   return (
     <div className="  flex flex-col mx-60 ">
-      {JSON.stringify(session)}
       <div className="flex  justify-around flex-wrap">
         <RichTextEditor />
         <div className="mt-10  w-1/6">
