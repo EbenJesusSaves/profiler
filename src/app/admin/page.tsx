@@ -6,7 +6,7 @@ import { IconHome, IconTags, IconTournament } from "@tabler/icons-react";
 // import { auth } from "../../auth/auth";
 // import { redirect } from "next/navigation";
 
-const page = async () => {
+const page = () => {
   // const session = await auth();
   // if (!session) return redirect("/api/auth/signin");
 
