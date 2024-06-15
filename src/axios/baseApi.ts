@@ -13,7 +13,6 @@ base.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     const session = await getSession();
     const access = session?.token;
-    console.log(access);
     if (access) {
       const token = access;
       console.log(token);
