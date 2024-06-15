@@ -5,7 +5,7 @@ import { IconHome, IconTags, IconTournament } from "@tabler/icons-react";
 
 const Page = () => {
   return (
-    <div className="  flex flex-col mx-60 ">
+    <div className="  flex flex-col mx-60 bg-[#070D0D]">
       <div className="flex  justify-around flex-wrap">
         <RichTextEditor />
         <div className="mt-10  w-1/6">

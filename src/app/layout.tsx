@@ -19,9 +19,12 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} style={{ backgroundColor: "black" }}>
         <SessionProvider basePath={BASE_PATH} session={session}>
-          <MantineProvider> {children} </MantineProvider>
+          <MantineProvider defaultColorScheme="dark">
+            {" "}
+            {children}{" "}
+          </MantineProvider>
         </SessionProvider>
       </body>
     </html>

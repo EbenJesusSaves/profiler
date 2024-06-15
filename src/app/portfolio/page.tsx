@@ -1,29 +1,8 @@
-import { CardProps } from "@/components/articles/card";
-import { BackgroundBeams } from "@/components/ui/backgroundBeam";
 import React from "react";
-import { faker } from "@faker-js/faker";
 import { FloatingNav } from "@/components/ui/TabsComponent";
 import { navItems } from "@/components/util/navList";
 import { HoverEffect } from "@/components/ui/CardHoverEffect";
 const page = () => {
-  function generateArticles(count: number): CardProps[] {
-    const articles: CardProps[] = [];
-
-    for (let i = 0; i < count; i++) {
-      articles.push({
-        imageURl: `https://picsum.photos/seed/${faker.datatype.uuid()}/300/200`, // Generates a random tech image URL
-        title: faker.lorem.sentence(), // Generates a random sentence for the title
-        date: faker.date.recent().toISOString(), // Generates a recent date
-        tags: Array.from({ length: 3 }, () => faker.lorem.word()), // Generates an array of 3 random words for the tags
-        body: faker.lorem.paragraphs(), // Generates random paragraphs for the body
-      });
-    }
-
-    return articles;
-  }
-
-  const articles = generateArticles(6);
-
   return (
     <div className=" flex items-center justify-center bg-black">
       <FloatingNav navItems={navItems} />
@@ -41,7 +20,7 @@ const page = () => {
         {/* <BackgroundBeams className="bg-black" /> */}
 
         <div className="max-w-5xl mx-auto px-8">
-          <HoverEffect items={articles} />
+          <HoverEffect />
         </div>
       </div>
     </div>
