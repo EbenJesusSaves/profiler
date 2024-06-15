@@ -39,18 +39,7 @@ const page = () => {
           Ensure some Chilly Cool Articles ✨🧐{" "}
         </div>
         {/* <BackgroundBeams className="bg-black" /> */}
-        {/* <div className="container flex flex-wrap justify-between items-center mt-20">
-          {articles.map((item) => (
-            <Card
-              key={item.title}
-              body={item.body}
-              tags={item.tags}
-              title={item.title}
-              date={item.date}
-              imageURl={item.imageURl}
-            />
-          ))}
-        </div> */}
+
         <div className="max-w-5xl mx-auto px-8">
           <HoverEffect items={articles} />
         </div>
