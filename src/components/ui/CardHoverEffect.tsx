@@ -4,14 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "../util/cn";
-import { CardProps } from "../articles/card";
 import Image from "next/image";
 import base from "@/axios/baseApi";
 import Loader from "../loaders/Loader";
 import { Grid } from "@mantine/core";
 
 interface Props {
-  items: CardProps[];
   className?: string;
 }
 
@@ -24,7 +22,7 @@ interface Article {
   title: string;
 }
 
-export const HoverEffect = ({ items, className }: Props) => {
+export const HoverEffect = ({ className }: Props) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [posts, setPosts] = useState<Article[]>();
   const [loading, setLoading] = useState(false);
