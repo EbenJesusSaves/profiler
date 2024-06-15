@@ -36,6 +36,7 @@ const RichTextEditor = ({ prevContent }: Props) => {
   const [tag, setTag] = useState<string[]>([]);
   const [title, setTitle] = useState("");
   const [uploadPreset] = useState("halumx55");
+  const [headerImage, setHeaderImage] = useState("");
   const cloudName = "djzn1iixv";
 
   const [uwConfig] = useState({
@@ -46,6 +47,13 @@ const RichTextEditor = ({ prevContent }: Props) => {
   useEffect(() => {
     if (!imageLink || caller === "title") return;
     insertImage(imageLink);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [imageLink]);
+  useEffect(() => {
+    if (caller === "title") {
+      setHeaderImage(imageLink);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageLink]);
 
@@ -111,7 +119,7 @@ const RichTextEditor = ({ prevContent }: Props) => {
 
     const bod = {
       title,
-      image: imageLink,
+      image: headerImage,
       body: content,
       tags: tag,
     };
