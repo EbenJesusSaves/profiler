@@ -6,3 +6,36 @@
 .root {
   @apply bg-[[#0e0e10]]
 }
+
+
+.ql-container {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.ql-toolbar {
+  background-color: #000000;
+}
+
+.ql-editor {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.ql-snow .ql-stroke {
+  stroke: #ffffff;
+}
+
+.ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+  fill: #ffffff;
+}
+
+.ql-snow .ql-picker-label {
+  color: #ffffff;
+}
+
+.ql-snow .ql-picker-options {
+  background-color: #000000;
+  color: #ffffff;
+}

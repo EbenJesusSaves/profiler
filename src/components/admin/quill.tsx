@@ -12,7 +12,7 @@ import "quill/dist/quill.snow.css";
 
 import { useQuill } from "react-quilljs";
 import Quill from "quill";
-import { TagsInput, Button } from "@mantine/core";
+import { TagsInput, Button, Group } from "@mantine/core";
 import base from "@/axios/baseApi";
 
 interface Props {
@@ -132,7 +132,7 @@ const RichTextEditor = ({ prevContent }: Props) => {
   };
 
   return (
-    <div className="">
+    <div className=" h-[100vh]">
       <div>
         <CloudinaryScriptContext.Provider value={{ loaded }}>
           <button
@@ -147,18 +147,19 @@ const RichTextEditor = ({ prevContent }: Props) => {
       <input
         onChange={(e) => setTitle(e.target.value)}
         type="text"
-        className="text-6xl font-black border-solid border-gray-300 border w-[100%] my-5"
+        className="text-6xl font-black border-solid border-gray-300 bg-black border w-[100%] my-5"
         placeholder="New Post Title here..."
       />
       <div className="mb-5">
         <TagsInput
+          style={{ backgroundColor: "black" }}
           label="Press Enter to submit a tag"
           mb="md"
           onChange={setTag}
           placeholder="Enter tag"
         />
       </div>
-      <div style={{ height: 650, width: 900 }}>
+      <div style={{ height: 600, width: 900 }}>
         <div id="toolbar" style={{ position: "relative" }}>
           <button className="ql-bold">Bold</button>
           <button className="ql-italic">Italic</button>
@@ -194,10 +195,10 @@ const RichTextEditor = ({ prevContent }: Props) => {
         </div>
         <div ref={quillRef} />
         <div ref={counterRef} />
-      </div>
-
-      <div>
-        <Button onClick={post}> Submit </Button>
+        <div className=" flex mt-3 gap-3">
+          <Button onClick={post}> Submit </Button>
+          <Button onClick={post}> save to Draft </Button>
+        </div>
       </div>
     </div>
   );

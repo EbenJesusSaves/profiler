@@ -7,6 +7,8 @@ import { cn } from "../util/cn";
 import { CardProps } from "../articles/card";
 import Image from "next/image";
 import base from "@/axios/baseApi";
+import Loader from "../loaders/Loader";
+import { Grid } from "@mantine/core";
 
 interface Props {
   items: CardProps[];
@@ -37,7 +39,6 @@ export const HoverEffect = ({ items, className }: Props) => {
         setPosts(data);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         setLoading(false);
       }
     })();
@@ -73,7 +74,19 @@ export const HoverEffect = ({ items, className }: Props) => {
         className
       )}
     >
-      {posts &&
+      {loading ? (
+        <Grid style={{ width: "60rem" }}>
+          <Grid.Col span={4}>
+            <Loader />
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <Loader />
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <Loader />
+          </Grid.Col>
+        </Grid>
+      ) : (
         posts?.map((item, idx) => (
           <Link
             href={`portfolio/${item.id}`}
@@ -102,7 +115,15 @@ export const HoverEffect = ({ items, className }: Props) => {
             <Card>
               <CardTitle className="mb-5">{item?.title}</CardTitle>
               {item?.image && (
-                <Image src={item?.image} alt="" width={400} height={400} />
+                <Image
+                  src={item?.image}
+                  loading="lazy"
+                  alt=""
+                  width={400}
+                  blurDataURL={item.image}
+                  placeholder="blur"
+                  height={400}
+                />
               )}
               <CardDescription>
                 {item?.tags &&
@@ -121,7 +142,8 @@ export const HoverEffect = ({ items, className }: Props) => {
               </div>
             </Card>
           </Link>
-        ))}
+        ))
+      )}
     </div>
   );
 };
