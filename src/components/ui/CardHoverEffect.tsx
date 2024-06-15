@@ -33,7 +33,7 @@ export const HoverEffect = ({ items, className }: Props) => {
         setLoading(true);
         const {
           data: { data },
-        } = await base.get("/admin/posts");
+        } = await base.get("/posts");
         setPosts(data);
         setLoading(false);
       } catch (error) {

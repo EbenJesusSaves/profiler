@@ -28,7 +28,7 @@ const Page = () => {
       try {
         const {
           data: { data },
-        } = await base.get(`/admin/post/${id}`);
+        } = await base.get(`/post/${id}`);
         setLoading(false);
         setPost(data);
       } catch (error) {
