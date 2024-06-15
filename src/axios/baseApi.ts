@@ -15,8 +15,6 @@ base.interceptors.request.use(
     const access = session?.token;
     if (access) {
       const token = access;
-      console.log(token);
-
       config.headers["Authorization"] = `Bearer ${token}`;
     }
 
