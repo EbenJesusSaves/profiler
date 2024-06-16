@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications";
 import { auth, BASE_PATH } from "@/auth/auth";
 import { SessionProvider } from "next-auth/react";
 const inter = Inter({ subsets: ["latin"] });
@@ -22,8 +24,8 @@ export default async function RootLayout({
       <body className={inter.className} style={{ backgroundColor: "black" }}>
         <SessionProvider basePath={BASE_PATH} session={session}>
           <MantineProvider defaultColorScheme="dark">
-            {" "}
-            {children}{" "}
+            <Notifications position="top-right" />
+            {children}
           </MantineProvider>
         </SessionProvider>
       </body>
