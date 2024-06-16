@@ -7,7 +7,8 @@ import { cn } from "../util/cn";
 import Image from "next/image";
 import base from "@/axios/baseApi";
 import Loader from "../loaders/Loader";
-import { Grid } from "@mantine/core";
+import { Avatar, Flex, Grid, Stack, Text } from "@mantine/core";
+import { formatDate } from "../util/functions";
 
 interface Props {
   className?: string;
@@ -20,6 +21,7 @@ interface Article {
   image: string;
   tags: string[];
   title: string;
+  posted_by: string;
 }
 
 export const HoverEffect = ({ className }: Props) => {
@@ -41,29 +43,6 @@ export const HoverEffect = ({ className }: Props) => {
       }
     })();
   }, []);
-  function formatDate(dateString: string) {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    const date = new Date(dateString);
-    const day = new Intl.DateTimeFormat("en-US", { day: "2-digit" }).format(
-      date
-    );
-    const monthYear = new Intl.DateTimeFormat("en-US", options).format(date);
-
-    let suffix = "th";
-    if (day === "01" || day === "21" || day === "31") {
-      suffix = "st";
-    } else if (day === "02" || day === "22") {
-      suffix = "nd";
-    } else if (day === "03" || day === "23") {
-      suffix = "rd";
-    }
-
-    return ` ${monthYear}`;
-  }
 
   return (
     <div
@@ -111,6 +90,18 @@ export const HoverEffect = ({ className }: Props) => {
               )}
             </AnimatePresence>
             <Card>
+              <Flex align={"center"} mb={10}>
+                <Avatar src={null} alt="Vitaly Rtishchev" color="pink"></Avatar>
+
+                <div>
+                  <Text fz={"sm"} c={"white"} fw={600} m={0} p={0}>
+                    {item.posted_by}
+                  </Text>
+                  <div className="text-blue-100 text-[0.6rem] mt-0 p-0">
+                    {formatDate(item?.date)}
+                  </div>
+                </div>
+              </Flex>
               <CardTitle className="mb-5">{item?.title}</CardTitle>
               {item?.image && (
                 <Image
@@ -134,10 +125,6 @@ export const HoverEffect = ({ className }: Props) => {
                     </span>
                   ))}
               </CardDescription>
-
-              <div className="text-blue-100 text-sm mt-4">
-                {formatDate(item?.date)}
-              </div>
             </Card>
           </Link>
         ))
@@ -161,7 +148,7 @@ export const Card = ({
       )}
     >
       <div className="relative z-50">
-        <div className="p-4">{children}</div>
+        <div className="p-1">{children}</div>
       </div>
     </div>
   );
