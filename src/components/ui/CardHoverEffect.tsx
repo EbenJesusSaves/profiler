@@ -74,13 +74,13 @@ export const HoverEffect = ({ className }: Props) => {
     >
       {loading ? (
         <Grid style={{ width: "60rem" }}>
-          <Grid.Col span={4}>
+          <Grid.Col span={{ sm: 10, md: 6, lg: 4 }}>
             <Loader />
           </Grid.Col>
-          <Grid.Col span={4}>
+          <Grid.Col span={{ sm: 10, md: 6, lg: 4 }}>
             <Loader />
           </Grid.Col>
-          <Grid.Col span={4}>
+          <Grid.Col span={{ sm: 10, md: 6, lg: 4 }}>
             <Loader />
           </Grid.Col>
         </Grid>
