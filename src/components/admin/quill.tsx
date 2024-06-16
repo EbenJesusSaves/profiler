@@ -50,7 +50,8 @@ const RichTextEditor = ({ prevContent }: Props) => {
   useEffect(() => {
     (async () => {
       const session = await getSession();
-      setSession(session?.name);
+
+      setSession(session?.user?.name);
     })();
   }, []);
 
@@ -125,8 +126,6 @@ const RichTextEditor = ({ prevContent }: Props) => {
   };
 
   const post = async () => {
-    console.log("hii");
-
     const bod = {
       title,
       image: headerImage,
