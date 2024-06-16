@@ -14,6 +14,7 @@ import { useQuill } from "react-quilljs";
 import Quill from "quill";
 import { TagsInput, Button, Group } from "@mantine/core";
 import base from "@/axios/baseApi";
+import { getSession } from "next-auth/react";
 
 interface Props {
   prevContent?: string;
@@ -37,12 +38,22 @@ const RichTextEditor = ({ prevContent }: Props) => {
   const [title, setTitle] = useState("");
   const [uploadPreset] = useState("halumx55");
   const [headerImage, setHeaderImage] = useState("");
+  const [session, setSession] = useState<string>();
   const cloudName = "djzn1iixv";
 
   const [uwConfig] = useState({
     cloudName,
     uploadPreset,
   });
+
+  // getting user session
+  useEffect(() => {
+    (async () => {
+      const session = await getSession();
+
+      setSession(session?.user?.name);
+    })();
+  }, []);
 
   useEffect(() => {
     if (!imageLink || caller === "title") return;
@@ -115,13 +126,12 @@ const RichTextEditor = ({ prevContent }: Props) => {
   };
 
   const post = async () => {
-    console.log("hii");
-
     const bod = {
       title,
       image: headerImage,
       body: content,
       tags: tag,
+      posted_by: session,
     };
     try {
       const { data } = await base.post("/admin/post", JSON.stringify(bod));

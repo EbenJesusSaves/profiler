@@ -1,10 +1,19 @@
 "use client";
 import base from "@/axios/baseApi";
-import { Container, Flex, Image, Paper, Text, rem } from "@mantine/core";
+import {
+  Avatar,
+  Container,
+  Flex,
+  Image,
+  Paper,
+  Text,
+  rem,
+} from "@mantine/core";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import PageLoader from "@/components/loaders/PageLoader";
+import { formatDate } from "@/components/util/functions";
 interface Post {
   comments_body: string;
   id: number;
@@ -13,6 +22,7 @@ interface Post {
   date: string;
   tags: string[];
   image: string;
+  posted_by: string;
   comment_post_id: number;
 }
 
@@ -66,7 +76,19 @@ const Page = () => {
               fit="cover"
               alt=""
             />
-            <Text fw={700} fz={rem(60)} c={"white"}>
+            <Flex align={"center"} my={10}>
+              <Avatar src={null} alt="Vitaly Rtishchev" color="pink"></Avatar>
+
+              <div>
+                <Text fz={"sm"} c={"white"} fw={600} m={0} p={0}>
+                  {post?.posted_by}
+                </Text>
+                <div className="text-blue-100 text-[0.6rem] mt-0 p-0">
+                  {post?.date && formatDate(post?.date as string)}
+                </div>
+              </div>
+            </Flex>
+            <Text fw={700} fz={rem(48)} c={"white"}>
               {post?.title}{" "}
             </Text>
             <Flex my={10}>
