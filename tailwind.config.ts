@@ -16,7 +16,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "custom-blue": "rgba(9, 55, 182, 0.2419)",
+        "custom-blue": "rgba(9, 55, 182, 0.4419)",
       },
 
       animation: {
