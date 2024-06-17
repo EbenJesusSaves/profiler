@@ -119,7 +119,7 @@ export const HoverEffect = ({ className }: Props) => {
                   item?.tags?.map((tag) => (
                     <span
                       key={tag}
-                      className="bg-custom-blue rounded-sm mr-2 text-[0.6rem] px-2 py-2 text-white"
+                      className="bg-custom-blue rounded-sm mr-2 mb-2 text-[0.6rem] px-1 py-1 text-white"
                     >
                       {tag}
                     </span>

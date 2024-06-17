@@ -53,3 +53,6 @@ export const authOptions: NextAuthConfig = {
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);
+
+// create Likes table
+// post click send post_id, user_id, a count that counts number of Ids
