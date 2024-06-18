@@ -54,11 +54,13 @@ export const HomeComp = () => {
           </div>
         </div>
         <div>
-          <div className="text-white hidden md:block">Portfolio goes here</div>
+          <div className="text-white hidden md:block text-6xl font-bold mb-4 ">
+            Some of Awesome Projects I have worked on
+          </div>
           <HeroParallaxDemo />
         </div>
         <GoogleGeminiEffectComponent />
-        <div className="container flex justify-center flex-col md:flex-row items-center bg-black w-full">
+        <div className="container flex justify-center gap-[10rem] flex-col md:flex-row items-center bg-black w-full">
           <div className="">
             <GlowingStarsBackgroundCardComp
               title="Email"
