@@ -20,9 +20,6 @@ export function GlowingStarsBackgroundCardComp({ title, text }: Input) {
         <div className="flex justify-between flex-row items-end">
           <GlowingStarsDescription>{text}</GlowingStarsDescription>
         </div>
-        <div className="h-8 bg-clip-text text-md font-black text-transparent bg-gradient-to-r from-blue-700 to-pink-500  mt-2 rounded-full flex items-center justify-center">
-          Get In touch <Icon />
-        </div>
       </GlowingStarsBackgroundCard>
     </div>
   );

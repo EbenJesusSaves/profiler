@@ -76,6 +76,7 @@ const RichTextEditor = ({ prevContent }: Props) => {
   const { quill, quillRef, Quill } = useQuill({
     modules: {
       theme,
+      // content={ }
       counter: true,
       toolbar: {
         container: "#toolbar",
@@ -118,6 +119,9 @@ const RichTextEditor = ({ prevContent }: Props) => {
     if (range) {
       quill?.insertEmbed(range.index, "image", file, Quill.sources.USER);
     }
+  };
+  const saveToDraft = () => {
+    localStorage.setItem(`draftContent`, JSON.stringify(content));
   };
 
   const openTitleImage = () => {
@@ -207,7 +211,7 @@ const RichTextEditor = ({ prevContent }: Props) => {
         <div ref={counterRef} />
         <div className=" flex mt-3 gap-3">
           <Button onClick={post}> Submit </Button>
-          <Button onClick={post}> save to Draft </Button>
+          <Button onClick={saveToDraft}> save to Draft </Button>
         </div>
       </div>
     </div>

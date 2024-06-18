@@ -7,6 +7,7 @@ import { HoverEffect } from "@/components/ui/CardHoverEffect";
 import { getSession } from "next-auth/react";
 import { Button, Flex } from "@mantine/core";
 import Link from "next/link";
+import { BackgroundBeams } from "@/components/ui/backgroundBeam";
 const Page = () => {
   const [session, setSession] = useState<string>();
   const [loadingSession, setLoadingSession] = useState(false);
@@ -24,7 +25,7 @@ const Page = () => {
       <Flex justify={"end"} w={"50%"}>
         {loadingSession === false && !session ? (
           <Link href={"/signin"}>
-            <Button>Sign in</Button>
+            <Button>Sign in </Button>
           </Link>
         ) : (
           <Link href={"/admin"}>

@@ -9,6 +9,7 @@ import u5 from "../../../public/images/Untitled-5.webp";
 import u6 from "../../../public/images/Untitled-6.webp";
 import u7 from "../../../public/images/Untitled-7.webp";
 import { DirectionAwareHover } from "../ui/movingPages";
+import Link from "next/link";
 
 export function HeroParallaxDemo() {
   return (
@@ -18,10 +19,12 @@ export function HeroParallaxDemo() {
           key={item.title}
           className=" relative  flex items-center justify-center"
         >
-          <DirectionAwareHover imageUrl={item.thumbnail}>
-            <p className="font-bold text-xl">In the mountains</p>
-            <p className="font-normal text-sm">$1299 / night</p>
-          </DirectionAwareHover>
+          <Link href={item.link}>
+            <DirectionAwareHover imageUrl={item.thumbnail}>
+              <p className="font-bold text-xl">{item.title}</p>
+              <p className="font-normal text-sm">click to visit site</p>
+            </DirectionAwareHover>
+          </Link>
         </div>
       ))}
     </div>
@@ -30,27 +33,12 @@ export function HeroParallaxDemo() {
 export const products = [
   {
     title: "Deal Analyzer",
-    link: "https://gomoonbeam.com",
+    link: "https://bpotech.io/analytics",
     thumbnail: u1,
   },
   {
-    title: "Cursor",
-    link: "https://cursor.so",
-    thumbnail: u2,
-  },
-  {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail: u3,
-  },
-  {
-    title: "Moonbeam",
-    link: "https://gomoonbeam.com",
-    thumbnail: u1,
-  },
-  {
-    title: "Cursor",
-    link: "https://cursor.so",
+    title: "BPO HOMES",
+    link: "https://bpotech.io/",
     thumbnail: u2,
   },
   {
@@ -65,8 +53,8 @@ export const products = [
     thumbnail: u4,
   },
   {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
+    title: "JMGC",
+    link: "https://jmgc.io/",
     thumbnail: u5,
   },
   {
@@ -76,28 +64,8 @@ export const products = [
   },
 
   {
-    title: "Algochurn",
-    link: "https://algochurn.com",
+    title: "Movies Site",
+    link: "https://ebenjesussaves.github.io/BetterMovies/",
     thumbnail: u7,
-  },
-  {
-    title: "Editrix AI",
-    link: "https://editrix.ai",
-    thumbnail: u5,
-  },
-  {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail: u6,
-  },
-  {
-    title: "Cursor",
-    link: "https://cursor.so",
-    thumbnail: u2,
-  },
-  {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail: u3,
   },
 ];

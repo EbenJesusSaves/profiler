@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { TracingBeam } from "../ui/Tracking";
 import { GlowingStarsBackgroundCardComp } from "./AboutCard";
 import { Aboutme } from "./Aboutme";
@@ -11,8 +12,17 @@ import { TextRevealCardPreview } from "./TextCard";
 import { TypewriterEffectSmoothDemo } from "./WritingEffect";
 import { InfiniteMovingCardsDemo } from "./logos";
 import { HeroParallaxDemo } from "./projects";
+import { MouseEvent, useRef } from "react";
+
 // import s from '../../app/globals.css'
 export const HomeComp = () => {
+  const contactRef = useRef<HTMLDivElement>(null);
+
+  const scrollToContact = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    contactRef?.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="flex flex-col rounded-2xl bg-[#0e0e10] justify-center items-center ">
       {/* <TracingBeam> */}
@@ -23,8 +33,15 @@ export const HomeComp = () => {
             <div className="w-[25rem] md:w-full">
               <TextRevealCardPreview />
               <div className="w-full bg-black mt-[4rem] flex flex-row gap-5 items-center justify-center">
-                <MovingBorderDemo text={"download CV"} />
-                <MovingBorderDemo text={"contact me"} />
+                <a href="/docs/CV.pdf" download="CV.pdf">
+                  <MovingBorderDemo text={"download CV"} />
+                </a>
+                <a
+                  onClick={scrollToContact}
+                  style={{ scrollBehavior: "smooth" }}
+                >
+                  <MovingBorderDemo text={"contact me"} />
+                </a>
               </div>
             </div>
           </div>
@@ -37,11 +54,13 @@ export const HomeComp = () => {
           </div>
         </div>
         <div>
-          <div className="text-white hidden md:block">Portfolio goes here</div>
+          <div className="text-white hidden md:block text-6xl font-bold mb-4 ">
+            Some of Awesome Projects I have worked on
+          </div>
           <HeroParallaxDemo />
         </div>
         <GoogleGeminiEffectComponent />
-        <div className="container flex justify-center flex-col md:flex-row items-center bg-black w-full">
+        <div className="container flex justify-center gap-[10rem] flex-col md:flex-row items-center bg-black w-full">
           <div className="">
             <GlowingStarsBackgroundCardComp
               title="Email"
@@ -56,7 +75,7 @@ export const HomeComp = () => {
               text="coming soon"
             />
           </div>
-          <div className="">
+          <div ref={contactRef}>
             <GetInTouch />
           </div>
         </div>
