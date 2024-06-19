@@ -8,6 +8,10 @@ import u4 from "../../../public/images/Untitled-4.webp";
 import u5 from "../../../public/images/Untitled-5.webp";
 import u6 from "../../../public/images/Untitled-6.webp";
 import u7 from "../../../public/images/Untitled-7.webp";
+import movie from "../../../public/images/movie.jpg";
+import creatives from "../../../public/images/creatives.png";
+import food from "../../../public/images/food.jpg";
+import smart from "../../../public/images/smart.png";
 import { DirectionAwareHover } from "../ui/movingPages";
 import Link from "next/link";
 
@@ -42,30 +46,45 @@ export const products = [
     thumbnail: u2,
   },
   {
-    title: "Rogue",
-    link: "https://userogue.com",
-    thumbnail: u3,
-  },
-
-  {
-    title: "Editorially",
-    link: "https://editorially.org",
-    thumbnail: u4,
-  },
-  {
     title: "JMGC",
     link: "https://jmgc.io/",
     thumbnail: u5,
   },
   {
-    title: "Pixel Perfect",
-    link: "https://app.pixelperfect.quest",
-    thumbnail: u6,
+    title: "JMGC Creatives",
+    link: "https://testing.jmgc.io/resources",
+    thumbnail: creatives,
+  },
+  {
+    title: "Free Movies",
+    link: "https://github.com/EbenJesusSaves/fullMovie",
+    thumbnail: movie,
+  },
+
+  {
+    title: "Transclosures",
+    link: "#",
+    thumbnail: u4,
+  },
+  {
+    title: "Smart Pod",
+    link: "https://mediline.onrender.com/home",
+    thumbnail: smart,
   },
 
   {
     title: "Movies Site",
     link: "https://ebenjesussaves.github.io/BetterMovies/",
     thumbnail: u7,
+  },
+  {
+    title: "Restaurant Near Finder",
+    link: "https://github.com/EbenJesusSaves/foodApp/tree/master/",
+    thumbnail: food,
+  },
+  {
+    title: "Restaurant Near Finder",
+    link: "https://github.com/EbenJesusSaves/foodApp/tree/master/",
+    thumbnail: food,
   },
 ];
