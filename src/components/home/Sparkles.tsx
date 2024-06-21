@@ -1,8 +1,24 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SparklesCore } from "../ui/sparkles";
+import base from "@/axios/baseApi";
 
 export function SparklesPreview() {
+  const [post, setPosts] = useState();
+
+  // because articles are hosted on a free server, it goes off after some few minutes of being inactive
+  // this useEffect kinda ping request to spin up server before client visits
+  useEffect(() => {
+    (async () => {
+      if (post) return;
+      try {
+        const {
+          data: { data },
+        } = await base.get("/posts");
+        setPosts(data);
+      } catch (error) {}
+    })();
+  }, []);
   return (
     <div className="h-[30rem]  w-full bg-black flex flex-col items-center justify-center overflow-hidden rounded-md">
       <small className="text-white ">Hey There, 🚀Welcome Aboard!</small>

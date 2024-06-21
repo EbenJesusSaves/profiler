@@ -39,6 +39,7 @@ interface Post {
 interface GetPosts {
   data: Post;
 }
+
 interface CommentType {
   body: string;
   post_id: number;
@@ -115,10 +116,12 @@ const Page = () => {
   return (
     <div style={{ backgroundColor: "black" }}>
       {loading ? (
-        <Container>
-          <PageLoader />
-        </Container>
+        <>Loading </>
       ) : (
+        // <Container>
+        //   {/* <PageLoader /> */}
+        //   Lo
+        // </Container>
         <Container
           style={{
             display: "flex",
@@ -128,7 +131,7 @@ const Page = () => {
             borderRadius: 15,
           }}
         >
-          <Paper shadow="1" bg={"#030208"}>
+          <div>
             <Image
               radius="md"
               src={post?.image}
@@ -163,7 +166,7 @@ const Page = () => {
               ))}
             </Flex>
             <div style={{ color: "white" }}>{parser}</div>
-          </Paper>
+          </div>
           <Group style={{ alignSelf: "start" }} mt={20}>
             <Text c="white" fz={30} fw={700}>
               Top Comments
@@ -188,7 +191,7 @@ const Page = () => {
             {!!postComments?.length ? (
               <Stack>
                 {postComments?.map((comment) => (
-                  <Group key={comment?.post_id}>
+                  <Group key={comment?.post_id + comment.commented_by}>
                     <Flex align={"center"} my={10}>
                       <Avatar src={null} alt="Vitaly Rtishchev" color="blue">
                         {comment?.commented_by &&
