@@ -9,19 +9,10 @@ import base from "@/axios/baseApi";
 import Loader from "../loaders/Loader";
 import { Avatar, Flex, Grid, Stack, Text } from "@mantine/core";
 import { formatDate } from "../util/functions";
+import { Article } from "@/types/types";
 
 interface Props {
   className?: string;
-}
-
-interface Article {
-  body: string;
-  date: string;
-  id: number;
-  image: string;
-  tags: string[];
-  title: string;
-  posted_by: string;
 }
 
 export const HoverEffect = ({ className }: Props) => {

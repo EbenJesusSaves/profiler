@@ -28,9 +28,14 @@ const Page = () => {
             <Button>Sign in </Button>
           </Link>
         ) : (
-          <Link href={"/admin"}>
-            <Button>Post Article</Button>
-          </Link>
+          <Flex gap={10}>
+            <Link href={"/admin"}>
+              <Button>Post Article</Button>
+            </Link>
+            <Link href={"/user"}>
+              <Button>Dashboard</Button>
+            </Link>
+          </Flex>
         )}
       </Flex>
       <FloatingNav navItems={navItems} />

@@ -15,7 +15,11 @@ import {
 } from "@mantine/core";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import parse from "html-react-parser";
+import parse, {
+  HTMLReactParserOptions,
+  DOMNode,
+  Element,
+} from "html-react-parser";
 import PageLoader from "@/components/loaders/PageLoader";
 import { formatDate, getInitials } from "@/components/util/functions";
 import { LabelInputContainer } from "@/components/home/Forms";
@@ -24,26 +28,8 @@ import { TextArea } from "@/components/ui/TextArea";
 import { getSession } from "next-auth/react";
 import { notifications } from "@mantine/notifications";
 import plainApi from "@/axios/axios";
-interface Post {
-  comments_body: string;
-  id: number;
-  title: string;
-  body: string;
-  date: string;
-  tags: string[];
-  image: string;
-  comments: { body: string; post_id: number; commented_by: string }[];
-  posted_by: string;
-}
+import { CommentType, Post } from "@/types/types";
 
-interface GetPosts {
-  data: Post;
-}
-interface CommentType {
-  body: string;
-  post_id: number;
-  commented_by: string;
-}
 const Page = () => {
   const [post, setPost] = useState<Post>();
   const [loading, setLoading] = useState(false);
@@ -110,8 +96,19 @@ const Page = () => {
     }
   };
 
-  const parser = parse(`${post?.body}`);
+  // const options: HTMLReactParserOptions = {
+  //   replace(domNode: DOMNode) {
+  //     if (
+  //       domNode instanceof Element &&
+  //       domNode.attribs &&
+  //       domNode.attribs.class === "remove"
+  //     ) {
+  //       return <></>;
+  //     }
+  //   },
+  // };
 
+  const theObj = { __html: `${post?.body}` };
   return (
     <div style={{ backgroundColor: "black" }}>
       {loading ? (
@@ -123,12 +120,14 @@ const Page = () => {
           style={{
             display: "flex",
             flexDirection: "column",
-            backgroundColor: "#05011a",
             alignItems: "center",
             borderRadius: 15,
+            border: "solid",
+            borderWidth: 1,
+            borderColor: "#060117",
           }}
         >
-          <Paper shadow="1" bg={"#030208"}>
+          <div>
             <Image
               radius="md"
               src={post?.image}
@@ -162,8 +161,10 @@ const Page = () => {
                 </span>
               ))}
             </Flex>
-            <div style={{ color: "white" }}>{parser}</div>
-          </Paper>
+            <div style={{ color: "white" }} dangerouslySetInnerHTML={theObj} />
+            {/* {parse(`${post?.body}`, options)} */}
+            {/* </div> */}
+          </div>
           <Group style={{ alignSelf: "start" }} mt={20}>
             <Text c="white" fz={30} fw={700}>
               Top Comments
@@ -188,7 +189,7 @@ const Page = () => {
             {!!postComments?.length ? (
               <Stack>
                 {postComments?.map((comment) => (
-                  <Group key={comment?.post_id}>
+                  <Group key={comment?.post_id + comment.commented_by}>
                     <Flex align={"center"} my={10}>
                       <Avatar src={null} alt="Vitaly Rtishchev" color="blue">
                         {comment?.commented_by &&
