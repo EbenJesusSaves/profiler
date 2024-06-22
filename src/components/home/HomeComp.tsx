@@ -33,7 +33,7 @@ export const HomeComp = () => {
             <div className="w-[25rem] md:w-full">
               <TextRevealCardPreview />
               <div className="w-full bg-black mt-[4rem] flex flex-row gap-5 items-center justify-center">
-                <a href="/docs/CV.pdf" download="CV.pdf">
+                <a href="/docs/cv2.pdf" download="CV.pdf">
                   <MovingBorderDemo text={"download CV"} />
                 </a>
                 <a
