@@ -69,10 +69,10 @@ export const HoverEffect = ({ className }: Props) => {
             href={`portfolio/${item.id}`}
             key={item?.id}
             className="relative group  block p-2 h-full w-full"
-            // onMouseEnter={() => setHoveredIndex(idx)}
-            // onMouseLeave={() => setHoveredIndex(null)}
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}
           >
-            {/* <AnimatePresence>
+            <AnimatePresence>
               {hoveredIndex === idx && (
                 <motion.span
                   className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block  rounded-3xl"
@@ -88,7 +88,7 @@ export const HoverEffect = ({ className }: Props) => {
                   }}
                 />
               )}
-            </AnimatePresence> */}
+            </AnimatePresence>
             <Card>
               <Flex align={"center"} mb={10}>
                 <Avatar src={null} alt="Vitaly Rtishchev" color="pink"></Avatar>
