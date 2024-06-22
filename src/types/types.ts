@@ -19,3 +19,13 @@ export interface CommentType {
   post_id: number;
   commented_by: string;
 }
+
+export interface Article {
+  body: string;
+  date: string;
+  id: number;
+  image: string;
+  tags: string[];
+  title: string;
+  posted_by: string;
+}

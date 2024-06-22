@@ -1,6 +1,6 @@
 "use client";
 import base from "@/axios/baseApi";
-import { Post } from "@/types/types";
+import { Article, Post } from "@/types/types";
 import {
   Button,
   Container,
@@ -14,6 +14,9 @@ import {
   Avatar,
   Indicator,
   Stack,
+  Card,
+  Badge,
+  Image,
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import s from "../../components/admin/nav/Navabar.module.css";
@@ -44,6 +47,7 @@ import { Session } from "next-auth";
 import { upperFirst } from "@mantine/hooks";
 import { Chart } from "@/components/admin/Chart";
 import pic from "/public/avatars/pca.jpg";
+
 const data = [
   { link: "", label: "Home", icon: IconArmchair },
   { link: "", label: "Posts", icon: IconAlignJustified },
@@ -111,6 +115,25 @@ const Page = () => {
   const editPost = async (post: Post) => {
     const { title, body, image, tags, id, posted_by } = post;
   };
+
+  const [posts, setPosts] = useState<Article[]>();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const {
+          data: { data },
+        } = await base.get("/posts");
+        setPosts(data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
   return (
     <Container fluid>
       <Grid columns={12}>
@@ -260,11 +283,45 @@ const Page = () => {
               </Flex>
               <Chart />
             </>
-            <>
+            <div style={{ alignSelf: "center" }}>
               <Text c={"white"} my={20} fw={700} fz={20}>
                 Recent Posts
               </Text>
-            </>
+              <Flex wrap={"wrap"} justify={"space-between"}>
+                {posts?.map((post) => (
+                  <Card
+                    mb={20}
+                    w={300}
+                    key={post.id}
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                  >
+                    <Card.Section component="a" href="https://mantine.dev/">
+                      <Image
+                        src={post.image}
+                        height={"130"}
+                        style={{ height: 140 }}
+                        alt="Norway"
+                      />
+                    </Card.Section>
+
+                    <Group justify="space-between" mt="md" mb="xs">
+                      <Text fw={500}>Norway Fjord Adventures</Text>
+                    </Group>
+
+                    <Text size="sm" c="dimmed">
+                      With Fjord Tours you can explore more of the magical fjord
+                    </Text>
+
+                    <Button color="blue" fullWidth mt="md" radius="md">
+                      Book classic tour now
+                    </Button>
+                  </Card>
+                ))}
+              </Flex>
+            </div>
           </Container>
         </Grid.Col>
         <Divider orientation="vertical" />
