@@ -47,6 +47,7 @@ import { Session } from "next-auth";
 import { upperFirst } from "@mantine/hooks";
 import { Chart } from "@/components/admin/Chart";
 import pic from "/public/avatars/pca.jpg";
+import { formatDate } from "@/components/util/functions";
 
 const data = [
   { link: "", label: "Home", icon: IconArmchair },
@@ -288,7 +289,7 @@ const Page = () => {
                 Recent Posts
               </Text>
               <Flex wrap={"wrap"} justify={"space-between"}>
-                {posts?.map((post) => (
+                {posts?.slice(0, 3).map((post) => (
                   <Card
                     mb={20}
                     w={300}
@@ -296,6 +297,7 @@ const Page = () => {
                     shadow="sm"
                     padding="lg"
                     radius="md"
+                    bg={"rgb(16, 3, 24)"}
                     withBorder
                   >
                     <Card.Section component="a" href="https://mantine.dev/">
@@ -308,16 +310,23 @@ const Page = () => {
                     </Card.Section>
 
                     <Group justify="space-between" mt="md" mb="xs">
-                      <Text fw={500}>Norway Fjord Adventures</Text>
+                      <Text fw={500} c={"white"}>
+                        {post.title}
+                      </Text>
                     </Group>
 
                     <Text size="sm" c="dimmed">
-                      With Fjord Tours you can explore more of the magical fjord
+                      {formatDate(post.date)}
                     </Text>
 
-                    <Button color="blue" fullWidth mt="md" radius="md">
-                      Book classic tour now
-                    </Button>
+                    <Flex gap={10}>
+                      <Button color="blue" fullWidth mt="md" radius="md">
+                        Edit
+                      </Button>
+                      <Button color="red" fullWidth mt="md" radius="md">
+                        Delete
+                      </Button>
+                    </Flex>
                   </Card>
                 ))}
               </Flex>
