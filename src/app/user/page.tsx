@@ -202,7 +202,7 @@ const Page = () => {
                 <Text fw={700} fz={30} c={"white"}>
                   Hello, {upperFirst(`${session?.user.name}`)}
                 </Text>
-                <Text>Here is a summery of your writing progress🎉</Text>
+                <Text>Here is a summery of your writing progress🎉🎉</Text>
               </Paper>
               <Paper bg={"transparent"}>
                 <Text
