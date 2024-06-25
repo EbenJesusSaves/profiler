@@ -8,7 +8,7 @@ import { Notifications } from "@mantine/notifications";
 import { auth, BASE_PATH } from "@/auth/auth";
 import { SessionProvider } from "next-auth/react";
 const inter = Inter({ subsets: ["latin"] });
-
+import { GoogleAnalytics } from "@next/third-parties/google";
 export const metadata: Metadata = {
   title: "Ebenezer' Work Progress",
   description: "Ebenezer's portfolio",
@@ -26,6 +26,7 @@ export default async function RootLayout({
           <MantineProvider defaultColorScheme="dark">
             <Notifications position="top-right" />
             {children}
+            <GoogleAnalytics gaId="G-GV7TWR2PG5" />
           </MantineProvider>
         </SessionProvider>
       </body>

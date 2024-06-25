@@ -17,6 +17,7 @@ import {
   Card,
   Badge,
   Image,
+  Modal,
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import s from "../../components/admin/nav/Navabar.module.css";
@@ -47,6 +48,9 @@ import { Session } from "next-auth";
 import { upperFirst } from "@mantine/hooks";
 import { Chart } from "@/components/admin/Chart";
 import pic from "/public/avatars/pca.jpg";
+import { formatDate } from "@/components/util/functions";
+import Link from "next/link";
+import { notifications } from "@mantine/notifications";
 
 const data = [
   { link: "", label: "Home", icon: IconArmchair },
@@ -58,7 +62,10 @@ const data = [
 const Page = () => {
   const [active, setActive] = useState("Billing");
   const [session, setSession] = useState<Session | null>();
-
+  const [posts, setPosts] = useState<Article[]>();
+  const [loading, setLoading] = useState(false);
+  const [slowTransitionOpened, setSlowTransitionOpened] = useState(false);
+  const [deleteLoader, setDeleteLoader] = useState(false);
   // getting user session
   useEffect(() => {
     (async () => {
@@ -105,34 +112,44 @@ const Page = () => {
 
     return `${day} ${months[monthIndex]}, ${year}`;
   }
-  const deletePost = async (post: Post) => {
+  const deletePost = async (post: Article) => {
     const { id, posted_by } = post;
+    setDeleteLoader(true);
     try {
-      await base.post("/admin/delete_post/", { posted_by, id });
-    } catch (error) {}
+      await base.delete(`/admin/delete_post?id=${id}&posted_by=${posted_by}`);
+      notifications.show({
+        title: "Success 🎉🎉🎉",
+        color: "green",
+        message: "Post deleted",
+      });
+      setDeleteLoader(false);
+    } catch (error) {
+      setDeleteLoader(false);
+      console.log(error);
+    } finally {
+      setSlowTransitionOpened(false);
+    }
   };
 
-  const editPost = async (post: Post) => {
+  const editPost = async (post: Article) => {
     const { title, body, image, tags, id, posted_by } = post;
   };
 
-  const [posts, setPosts] = useState<Article[]>();
-  const [loading, setLoading] = useState(false);
-
   useEffect(() => {
     (async () => {
+      if (!session?.user.name) return;
       try {
         setLoading(true);
         const {
           data: { data },
-        } = await base.get("/posts");
+        } = await base.get(`/admin/admin_posts/${session?.user.name}`);
         setPosts(data);
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [session?.user.name]);
 
   return (
     <Container fluid>
@@ -141,9 +158,16 @@ const Page = () => {
           <nav className={s.navbar}>
             <div className={s.navbarMain}>
               <Group className={s.header} justify="space-between">
-                <Text fw={700} fz={30} c={"white"}>
-                  Dashboard
-                </Text>
+                <Link href={"/portfolio"}>
+                  <Text
+                    fw={700}
+                    fz={30}
+                    c={"white"}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Dashboard
+                  </Text>{" "}
+                </Link>
                 <Code fw={700}>2.0.01</Code>
               </Group>
               {links}
@@ -178,7 +202,7 @@ const Page = () => {
                 <Text fw={700} fz={30} c={"white"}>
                   Hello, {upperFirst(`${session?.user.name}`)}
                 </Text>
-                <Text>Here is a summery of your writing progress🎉</Text>
+                <Text>Here is a summery of your writing progress🎉🎉</Text>
               </Paper>
               <Paper bg={"transparent"}>
                 <Text
@@ -288,7 +312,7 @@ const Page = () => {
                 Recent Posts
               </Text>
               <Flex wrap={"wrap"} justify={"space-between"}>
-                {posts?.map((post) => (
+                {posts?.slice(0, 3).map((post) => (
                   <Card
                     mb={20}
                     w={300}
@@ -296,9 +320,10 @@ const Page = () => {
                     shadow="sm"
                     padding="lg"
                     radius="md"
+                    bg={"rgb(16, 3, 24)"}
                     withBorder
                   >
-                    <Card.Section component="a" href="https://mantine.dev/">
+                    <Card.Section component="a" href="">
                       <Image
                         src={post.image}
                         height={"130"}
@@ -306,18 +331,56 @@ const Page = () => {
                         alt="Norway"
                       />
                     </Card.Section>
-
+                    <Modal
+                      opened={slowTransitionOpened}
+                      onClose={() => setSlowTransitionOpened(false)}
+                      title={
+                        <Text c={"white"} fz={16}>
+                          Do you want to delete this post{" "}
+                        </Text>
+                      }
+                      transitionProps={{ transition: "rotate-left" }}
+                    >
+                      <Flex gap={10}>
+                        <Button color="blue" fullWidth mt="md" radius="md">
+                          No
+                        </Button>
+                        <Button
+                          onClick={() => deletePost(post)}
+                          color="red"
+                          fullWidth
+                          mt="md"
+                          radius="md"
+                        >
+                          Yes
+                        </Button>
+                      </Flex>
+                    </Modal>
                     <Group justify="space-between" mt="md" mb="xs">
-                      <Text fw={500}>Norway Fjord Adventures</Text>
+                      <Text fw={500} c={"white"}>
+                        {post.title}
+                      </Text>
                     </Group>
 
                     <Text size="sm" c="dimmed">
-                      With Fjord Tours you can explore more of the magical fjord
+                      {formatDate(post.date)}
                     </Text>
 
-                    <Button color="blue" fullWidth mt="md" radius="md">
-                      Book classic tour now
-                    </Button>
+                    <Flex gap={10}>
+                      <Button color="blue" fullWidth mt="md" radius="md">
+                        Edit
+                      </Button>
+                      <Button
+                        onClick={() => setSlowTransitionOpened(true)}
+                        color="red"
+                        fullWidth
+                        loading={deleteLoader}
+                        mt="md"
+                        radius="md"
+                      >
+                        Delete
+                      </Button>
+                    </Flex>
                   </Card>
                 ))}
               </Flex>

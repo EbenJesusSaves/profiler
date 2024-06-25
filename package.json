@@ -17,6 +17,7 @@
     "@mantine/form": "^7.10.2",
     "@mantine/hooks": "^7.10.1",
     "@mantine/notifications": "^7.10.1",
+    "@next/third-parties": "^14.2.4",
     "@radix-ui/react-label": "^2.0.2",
     "@tabler/icons-react": "^3.2.0",
     "@tsparticles/engine": "^3.3.0",
