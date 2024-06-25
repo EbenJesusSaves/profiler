@@ -323,7 +323,7 @@ const Page = () => {
                     bg={"rgb(16, 3, 24)"}
                     withBorder
                   >
-                    <Card.Section component="a" href="https://mantine.dev/">
+                    <Card.Section component="a" href="">
                       <Image
                         src={post.image}
                         height={"130"}
