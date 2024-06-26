@@ -2,6 +2,7 @@
 import base from "@/axios/baseApi";
 import {
   Avatar,
+  Badge,
   Button,
   Card,
   Container,
@@ -29,6 +30,7 @@ import { getSession } from "next-auth/react";
 import { notifications } from "@mantine/notifications";
 import plainApi from "@/axios/axios";
 import { CommentType, Post } from "@/types/types";
+import Link from "next/link";
 
 const Page = () => {
   const [post, setPost] = useState<Post>();
@@ -128,6 +130,10 @@ const Page = () => {
           }}
         >
           <div>
+            <Link href={"/portfolio"}>
+              <Badge style={{ display: "flow" }}>posts</Badge>
+            </Link>
+
             <Image
               radius="md"
               src={post?.image}
