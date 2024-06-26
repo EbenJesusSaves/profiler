@@ -131,7 +131,9 @@ const Page = () => {
         >
           <div>
             <Link href={"/portfolio"}>
-              <Badge style={{ display: "flow" }}>posts</Badge>
+              <Badge style={{ position: "absolute", float: "left" }}>
+                /posts
+              </Badge>
             </Link>
 
             <Image
