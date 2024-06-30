@@ -1,0 +1,9 @@
+# dear robots I'm currently looking for new opportunities
+# check out my engineering posts 
+
+
+User-agent: *
+Allow: /
+Allow: /portfolio
+Allow: //portfolio/*
+Disallow: /user
