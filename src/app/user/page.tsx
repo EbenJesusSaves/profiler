@@ -51,6 +51,9 @@ import pic from "/public/avatars/pca.jpg";
 import { formatDate } from "@/components/util/functions";
 import Link from "next/link";
 import { notifications } from "@mantine/notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { editPosts } from "../lib/slice/postSlice";
+import { useRouter } from "next/navigation";
 
 const data = [
   { link: "", label: "Home", icon: IconArmchair },
@@ -62,10 +65,11 @@ const data = [
 const Page = () => {
   const [active, setActive] = useState("Billing");
   const [session, setSession] = useState<Session | null>();
-  const [posts, setPosts] = useState<Article[]>();
+  const [posts, setPosts] = useState<Post[]>();
   const [loading, setLoading] = useState(false);
   const [slowTransitionOpened, setSlowTransitionOpened] = useState(false);
   const [deleteLoader, setDeleteLoader] = useState(false);
+  const router = useRouter();
   // getting user session
   useEffect(() => {
     (async () => {
@@ -112,7 +116,7 @@ const Page = () => {
 
     return `${day} ${months[monthIndex]}, ${year}`;
   }
-  const deletePost = async (post: Article) => {
+  const deletePost = async (post: Post) => {
     const { id, posted_by } = post;
     setDeleteLoader(true);
     try {
@@ -135,6 +139,8 @@ const Page = () => {
     const { title, body, image, tags, id, posted_by } = post;
   };
 
+  const post = useSelector((state: Post) => state);
+  const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
       if (!session?.user.name) return;
@@ -150,6 +156,12 @@ const Page = () => {
       }
     })();
   }, [session?.user.name]);
+
+  // edit post function
+  const editPostFunc = (post: Post) => {
+    dispatch(editPosts(post));
+    router.push("/admin");
+  };
 
   return (
     <Container fluid>
@@ -367,7 +379,13 @@ const Page = () => {
                     </Text>
 
                     <Flex gap={10}>
-                      <Button color="blue" fullWidth mt="md" radius="md">
+                      <Button
+                        color="blue"
+                        onClick={() => editPostFunc(post)}
+                        fullWidth
+                        mt="md"
+                        radius="md"
+                      >
                         Edit
                       </Button>
                       <Button
