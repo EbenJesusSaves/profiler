@@ -54,6 +54,7 @@ import { notifications } from "@mantine/notifications";
 import { useDispatch, useSelector } from "react-redux";
 import { editPosts } from "../lib/slice/postSlice";
 import { useRouter } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "../lib/hooks";
 
 const data = [
   { link: "", label: "Home", icon: IconArmchair },
@@ -139,8 +140,9 @@ const Page = () => {
     const { title, body, image, tags, id, posted_by } = post;
   };
 
-  const post = useSelector((state: Post) => state);
-  const dispatch = useDispatch();
+  const post = useAppSelector((state) => state.posts);
+  console.log(post);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     (async () => {
       if (!session?.user.name) return;

@@ -11,6 +11,7 @@ const postSlice = createSlice({
   initialState,
   reducers: {
     editPosts(state, action: PayloadAction<Post>) {
+      console.log(action.payload, action, "hi");
       state.post = action.payload;
     },
   },
