@@ -15,9 +15,12 @@ import Quill from "quill";
 import { TagsInput, Button, Group } from "@mantine/core";
 import base from "@/axios/baseApi";
 import { getSession } from "next-auth/react";
+import { useAppSelector } from "@/app/lib/hooks";
+import { Post } from "@/types/types";
 
 interface Props {
   prevContent?: string;
+  prevPost?: Post;
 }
 
 interface CounterOptions {
@@ -28,16 +31,17 @@ type Caller = "editor" | "title";
 
 const CloudinaryScriptContext = createContext({});
 const CloudinaryScriptContext1 = createContext({});
-const RichTextEditor = ({ prevContent }: Props) => {
+const RichTextEditor = ({ prevContent, prevPost }: Props) => {
   const counterRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
 
+  console.log(prevPost);
   //============== clouldnary staff
-  const [imageLink, setImageLink] = useState("");
+  const [imageLink, setImageLink] = useState();
   const [caller, setCaller] = useState<Caller>("editor");
-  const [tag, setTag] = useState<string[]>([]);
-  const [title, setTitle] = useState("");
+  const [tag, setTag] = useState<string[]>(prevPost?.tags || []);
+  const [title, setTitle] = useState(prevPost?.title);
   const [uploadPreset] = useState("halumx55");
-  const [headerImage, setHeaderImage] = useState("");
+  const [headerImage, setHeaderImage] = useState(prevPost?.image);
   const [session, setSession] = useState<string>();
   const cloudName = "djzn1iixv";
 

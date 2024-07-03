@@ -162,7 +162,7 @@ const Page = () => {
   // edit post function
   const editPostFunc = (post: Post) => {
     dispatch(editPosts(post));
-    router.push("/admin");
+    router.push("user/admin");
   };
 
   return (
