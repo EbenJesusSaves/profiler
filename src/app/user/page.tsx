@@ -488,6 +488,12 @@ const Page = () => {
                   <IconBrandGithub color="#3697FF" />
                 </div>
               </Flex>
+              <Link href={"user/admin"}>
+                {" "}
+                <Button mt={5} fullWidth>
+                  Write something today Champ🎉{" "}
+                </Button>
+              </Link>
             </Paper>
           </Paper>
         </Grid.Col>

@@ -67,10 +67,16 @@ const Page = () => {
         title: "Huzza! Welcome Aboard,🎉🎉🎉",
         message: "Account Created, Don't Try Again!",
       });
-      router.replace("/admin");
+      router.replace("/user/admin");
       setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
+      notifications.show({
+        color: "red",
+        title: "Opps!something went wrong,😔😔",
+        message: "Account Created Failed,  Try Again!",
+      });
     }
   };
 
