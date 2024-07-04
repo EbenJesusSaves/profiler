@@ -17,6 +17,7 @@ import base from "@/axios/baseApi";
 import { getSession } from "next-auth/react";
 import { useAppSelector } from "@/app/lib/hooks";
 import { Post } from "@/types/types";
+import { notifications } from "@mantine/notifications";
 
 interface Props {
   prevContent?: string;
@@ -36,7 +37,7 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
 
   console.log(prevPost);
   //============== clouldnary staff
-  const [imageLink, setImageLink] = useState();
+  const [imageLink, setImageLink] = useState("");
   const [caller, setCaller] = useState<Caller>("editor");
   const [tag, setTag] = useState<string[]>(prevPost?.tags || []);
   const [title, setTitle] = useState(prevPost?.title);
@@ -44,7 +45,7 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
   const [headerImage, setHeaderImage] = useState(prevPost?.image);
   const [session, setSession] = useState<string>();
   const cloudName = "djzn1iixv";
-
+  const render = useRef<string | null>(null);
   const [uwConfig] = useState({
     cloudName,
     uploadPreset,
@@ -110,13 +111,6 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
     );
   }
 
-  useEffect(() => {
-    if (prevContent) {
-      quill?.clipboard.dangerouslyPasteHTML(prevContent);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [prevContent]);
-
   const content = quill?.root.innerHTML;
   const insertImage = (file: string) => {
     const range = quill?.getSelection(true);
@@ -132,7 +126,12 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
     setCaller("title");
     initializeCloudinaryWidget();
   };
-
+  const clearInput = () => {
+    setTag([""]);
+    setTitle("");
+    setHeaderImage("");
+    quill?.clipboard.dangerouslyPasteHTML("");
+  };
   const post = async () => {
     const bod = {
       title,
@@ -141,13 +140,51 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
       tags: tag,
       posted_by: session,
     };
+
+    const dditBod = {
+      id: prevPost?.id,
+      title,
+      image: headerImage,
+      body: content,
+      tags: tag,
+      posted_by: session,
+    };
+    console.log(session);
     try {
-      const { data } = await base.post("/admin/post", JSON.stringify(bod));
-      console.log(data);
+      if (prevPost?.id) {
+        const { data } = await base.put(
+          "/admin/edit_post",
+          JSON.stringify(dditBod)
+        );
+
+        notifications.show({
+          color: "green",
+          title: "Great 🎉🎉🎉🎉",
+          message: "Post edited successfully",
+        });
+        clearInput();
+      } else {
+        const { data } = await base.post("/admin/post", JSON.stringify(bod));
+        notifications.show({
+          color: "green",
+          title: "Great 🎉🎉🎉🎉",
+          message: "Post added successfully",
+        });
+        clearInput();
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
+  setTimeout(() => {
+    if (render.current !== null) return;
+    quill?.clipboard.dangerouslyPasteHTML(prevPost?.body as string);
+  }, 500);
+  setTimeout(() => {
+    if (render.current !== null) return;
+    render.current = prevPost?.date as string;
+  }, 700);
 
   return (
     <div className=" h-[100vh]">
@@ -163,6 +200,7 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
         </CloudinaryScriptContext.Provider>
       </div>
       <input
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
         type="text"
         className="text-6xl font-black border-solid border-gray-300 bg-black border w-[100%] my-5"
@@ -170,6 +208,7 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
       />
       <div className="mb-5">
         <TagsInput
+          value={tag}
           style={{ backgroundColor: "black" }}
           label="Press Enter to submit a tag"
           mb="md"
