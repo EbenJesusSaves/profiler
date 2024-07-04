@@ -29,7 +29,7 @@ const Page = () => {
           </Link>
         ) : (
           <Flex gap={10}>
-            <Link href={"/admin"}>
+            <Link href={"user/admin"}>
               <Button>Post Article</Button>
             </Link>
             <Link href={"/user"}>
