@@ -23,7 +23,7 @@ export function HeroParallaxDemo() {
           key={item.title}
           className=" relative  flex items-center justify-center"
         >
-          <Link href={item.link}>
+          <Link href={item.link} target="_blank">
             <DirectionAwareHover imageUrl={item.thumbnail}>
               <p className="font-bold text-xl">{item.title}</p>
               <p className="font-normal text-sm">click to visit site</p>

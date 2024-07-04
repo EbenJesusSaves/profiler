@@ -27,9 +27,9 @@ export function MeteorsComp({ icon, mainText, subText, btNText }: Met) {
             {subText}
           </p>
 
-          <button className="border px-4 py-1 rounded-lg  border-gray-500 text-gray-300">
+          {/* <button className="border px-4 py-1 rounded-lg  border-gray-500 text-gray-300">
             {btNText}
-          </button>
+          </button> */}
 
           {/* Meaty part - Meteor effect */}
           <Meteors number={20} />

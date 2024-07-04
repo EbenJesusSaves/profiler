@@ -2,12 +2,16 @@
 import RichTextEditor from "@/components/admin/quill";
 import { Text, Timeline } from "@mantine/core";
 import { IconHome, IconTags, IconTournament } from "@tabler/icons-react";
+import { useSelector } from "react-redux";
+import { useAppSelector } from "../../lib/hooks";
 
 const Page = () => {
+  const post = useAppSelector((state) => state.posts);
+  console.log(post);
   return (
     <div className="  flex flex-col mx-60 bg-[#070D0D]">
       <div className="flex  justify-around flex-wrap">
-        <RichTextEditor />
+        <RichTextEditor prevPost={post.post} />
         <div className="mt-10  w-1/6">
           <div className="font-black text-2xl mb-2">Tips:</div>
 
