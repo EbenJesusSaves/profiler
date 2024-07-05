@@ -1,4 +1,5 @@
 export function formatDate(dateString: string) {
+  if (!dateString) return;
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
@@ -27,4 +28,27 @@ export function getInitials(name: string) {
     .split(" ")
     .map((word) => word[0].toUpperCase())
     .join("");
+}
+
+export function getCurrentDateFormatted() {
+  const months = [
+    "January",
+    "Feb",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "Sept",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+  const monthIndex = currentDate.getMonth();
+  const year = currentDate.getFullYear();
+
+  return `${day} ${months[monthIndex]}, ${year}`;
 }
