@@ -79,7 +79,7 @@ export const Posts = ({
             bg={"rgb(16, 3, 24)"}
             withBorder
           >
-            <Card.Section component="a" href="">
+            <Card.Section>
               <Image
                 src={post.image}
                 height={"130"}
