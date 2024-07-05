@@ -48,13 +48,18 @@ import { Session } from "next-auth";
 import { upperFirst } from "@mantine/hooks";
 import { Chart } from "@/components/admin/Chart";
 import pic from "/public/avatars/pca.jpg";
-import { formatDate } from "@/components/util/functions";
+import {
+  formatDate,
+  getCurrentDateFormatted,
+} from "@/components/util/functions";
 import Link from "next/link";
 import { notifications } from "@mantine/notifications";
 import { useDispatch, useSelector } from "react-redux";
 import { editPosts } from "../lib/slice/postSlice";
 import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "../lib/hooks";
+import { Posts } from "@/components/admin/dashboard/posts";
+import Loader from "@/components/loaders/Loader";
 
 const data = [
   { link: "", label: "Home", icon: IconArmchair },
@@ -64,7 +69,7 @@ const data = [
 ];
 
 const Page = () => {
-  const [active, setActive] = useState("Billing");
+  const [active, setActive] = useState("Home");
   const [session, setSession] = useState<Session | null>();
   const [posts, setPosts] = useState<Post[]>();
   const [loading, setLoading] = useState(false);
@@ -78,6 +83,114 @@ const Page = () => {
       setSession(session);
     })();
   }, []);
+
+  const Home = (
+    <>
+      <>
+        <Flex justify={"space-between"}>
+          <Text c={"white"} mb={20} fw={700} fz={20}>
+            Engagement
+          </Text>
+        </Flex>
+        <Chart />
+      </>
+      <div style={{ alignSelf: "center" }}>
+        <Text c={"white"} my={20} fw={700} fz={20}>
+          Recent Posts
+        </Text>
+        <Flex wrap={"wrap"} justify={"space-between"}>
+          {posts?.slice(0, 3).map((post) => (
+            <Card
+              mb={20}
+              w={300}
+              key={post.id}
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              bg={"rgb(16, 3, 24)"}
+              withBorder
+            >
+              <Card.Section component="a" href="">
+                <Image
+                  src={post.image}
+                  height={"130"}
+                  style={{ height: 140 }}
+                  alt="Norway"
+                />
+              </Card.Section>
+              <Modal
+                opened={slowTransitionOpened}
+                onClose={() => setSlowTransitionOpened(false)}
+                title={
+                  <Text c={"white"} fz={16}>
+                    Do you want to delete this post{" "}
+                  </Text>
+                }
+                transitionProps={{ transition: "rotate-left" }}
+              >
+                <Flex gap={10}>
+                  <Button color="blue" fullWidth mt="md" radius="md">
+                    No
+                  </Button>
+                  <Button
+                    onClick={() => deletePost(post)}
+                    color="red"
+                    fullWidth
+                    mt="md"
+                    radius="md"
+                  >
+                    Yes
+                  </Button>
+                </Flex>
+              </Modal>
+              <Group justify="space-between" mt="md" mb="xs">
+                <Text fw={500} c={"white"}>
+                  {post.title}
+                </Text>
+              </Group>
+
+              <Text size="sm" c="dimmed">
+                {formatDate(post.date)}
+              </Text>
+
+              <Flex gap={10}>
+                <Button
+                  color="blue"
+                  onClick={() => editPostFunc(post)}
+                  fullWidth
+                  mt="md"
+                  radius="md"
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={() => setSlowTransitionOpened(true)}
+                  color="red"
+                  fullWidth
+                  loading={deleteLoader}
+                  mt="md"
+                  radius="md"
+                >
+                  Delete
+                </Button>
+              </Flex>
+            </Card>
+          ))}
+        </Flex>
+      </div>
+    </>
+  );
+
+  const returnCurrentPage = () => {
+    switch (active) {
+      case "Home":
+        return Home;
+      case "Posts":
+        return <Posts posts={posts} active={active} />;
+      case "Drafts":
+        return <Posts posts={posts} active={active} />;
+    }
+  };
 
   const links = data.map((item) => (
     <a
@@ -95,28 +208,6 @@ const Page = () => {
     </a>
   ));
 
-  function getCurrentDateFormatted() {
-    const months = [
-      "January",
-      "Feb",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "Sept",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const currentDate = new Date();
-    const day = currentDate.getDate();
-    const monthIndex = currentDate.getMonth();
-    const year = currentDate.getFullYear();
-
-    return `${day} ${months[monthIndex]}, ${year}`;
-  }
   const deletePost = async (post: Post) => {
     const { id, posted_by } = post;
     setDeleteLoader(true);
@@ -140,24 +231,32 @@ const Page = () => {
     const { title, body, image, tags, id, posted_by } = post;
   };
 
-  const post = useAppSelector((state) => state.posts);
-  console.log(post);
   const dispatch = useAppDispatch();
   useEffect(() => {
     (async () => {
       if (!session?.user.name) return;
       try {
         setLoading(true);
-        const {
-          data: { data },
-        } = await base.get(`/admin/admin_posts/${session?.user.name}`);
-        setPosts(data);
+        if (active === "Drafts") {
+          const {
+            data: { data },
+          } = await base.get(`/admin/draft_posts/${session?.user.name}`);
+
+          setPosts(data);
+        } else {
+          const {
+            data: { data },
+          } = await base.get(`/admin/admin_posts/${session?.user.name}`);
+          setPosts(data);
+        }
+
         setLoading(false);
       } catch (error) {
+        console.log(error);
         setLoading(false);
       }
     })();
-  }, [session?.user.name]);
+  }, [session?.user.name, active]);
 
   // edit post function
   const editPostFunc = (post: Post) => {
@@ -313,98 +412,21 @@ const Page = () => {
               </div>
             </Flex>
             <Divider mb={40} />
-            <>
-              <Flex justify={"space-between"}>
-                <Text c={"white"} mb={20} fw={700} fz={20}>
-                  Engagement
-                </Text>
-              </Flex>
-              <Chart />
-            </>
-            <div style={{ alignSelf: "center" }}>
-              <Text c={"white"} my={20} fw={700} fz={20}>
-                Recent Posts
-              </Text>
-              <Flex wrap={"wrap"} justify={"space-between"}>
-                {posts?.slice(0, 3).map((post) => (
-                  <Card
-                    mb={20}
-                    w={300}
-                    key={post.id}
-                    shadow="sm"
-                    padding="lg"
-                    radius="md"
-                    bg={"rgb(16, 3, 24)"}
-                    withBorder
-                  >
-                    <Card.Section component="a" href="">
-                      <Image
-                        src={post.image}
-                        height={"130"}
-                        style={{ height: 140 }}
-                        alt="Norway"
-                      />
-                    </Card.Section>
-                    <Modal
-                      opened={slowTransitionOpened}
-                      onClose={() => setSlowTransitionOpened(false)}
-                      title={
-                        <Text c={"white"} fz={16}>
-                          Do you want to delete this post{" "}
-                        </Text>
-                      }
-                      transitionProps={{ transition: "rotate-left" }}
-                    >
-                      <Flex gap={10}>
-                        <Button color="blue" fullWidth mt="md" radius="md">
-                          No
-                        </Button>
-                        <Button
-                          onClick={() => deletePost(post)}
-                          color="red"
-                          fullWidth
-                          mt="md"
-                          radius="md"
-                        >
-                          Yes
-                        </Button>
-                      </Flex>
-                    </Modal>
-                    <Group justify="space-between" mt="md" mb="xs">
-                      <Text fw={500} c={"white"}>
-                        {post.title}
-                      </Text>
-                    </Group>
-
-                    <Text size="sm" c="dimmed">
-                      {formatDate(post.date)}
-                    </Text>
-
-                    <Flex gap={10}>
-                      <Button
-                        color="blue"
-                        onClick={() => editPostFunc(post)}
-                        fullWidth
-                        mt="md"
-                        radius="md"
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        onClick={() => setSlowTransitionOpened(true)}
-                        color="red"
-                        fullWidth
-                        loading={deleteLoader}
-                        mt="md"
-                        radius="md"
-                      >
-                        Delete
-                      </Button>
-                    </Flex>
-                  </Card>
-                ))}
-              </Flex>
-            </div>
+            {loading ? (
+              <Grid style={{ width: "60rem" }}>
+                <Grid.Col span={{ sm: 10, md: 6, lg: 4 }}>
+                  <Loader />
+                </Grid.Col>
+                <Grid.Col span={{ sm: 10, md: 6, lg: 4 }}>
+                  <Loader />
+                </Grid.Col>
+                <Grid.Col span={{ sm: 10, md: 6, lg: 4 }}>
+                  <Loader />
+                </Grid.Col>
+              </Grid>
+            ) : (
+              returnCurrentPage()
+            )}
           </Container>
         </Grid.Col>
         <Divider orientation="vertical" />

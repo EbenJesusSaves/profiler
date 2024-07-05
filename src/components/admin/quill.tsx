@@ -12,10 +12,9 @@ import "quill/dist/quill.snow.css";
 
 import { useQuill } from "react-quilljs";
 import Quill from "quill";
-import { TagsInput, Button, Group } from "@mantine/core";
+import { TagsInput, Button } from "@mantine/core";
 import base from "@/axios/baseApi";
 import { getSession } from "next-auth/react";
-import { useAppSelector } from "@/app/lib/hooks";
 import { Post } from "@/types/types";
 import { notifications } from "@mantine/notifications";
 
@@ -35,7 +34,6 @@ const CloudinaryScriptContext1 = createContext({});
 const RichTextEditor = ({ prevContent, prevPost }: Props) => {
   const counterRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
 
-  console.log(prevPost);
   //============== clouldnary staff
   const [imageLink, setImageLink] = useState("");
   const [caller, setCaller] = useState<Caller>("editor");
@@ -44,6 +42,7 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
   const [uploadPreset] = useState("halumx55");
   const [headerImage, setHeaderImage] = useState(prevPost?.image);
   const [session, setSession] = useState<string>();
+  const [draftLoader, setDraftLoader] = useState(false);
   const cloudName = "djzn1iixv";
   const render = useRef<string | null>(null);
   const [uwConfig] = useState({
@@ -118,9 +117,6 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
       quill?.insertEmbed(range.index, "image", file, Quill.sources.USER);
     }
   };
-  const saveToDraft = () => {
-    localStorage.setItem(`draftContent`, JSON.stringify(content));
-  };
 
   const openTitleImage = () => {
     setCaller("title");
@@ -132,6 +128,59 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
     setHeaderImage("");
     quill?.clipboard.dangerouslyPasteHTML("");
   };
+
+  const saveToDraft = async () => {
+    const bod = {
+      title,
+      image: headerImage,
+      body: content,
+      tags: tag,
+      created_by: session,
+    };
+    const draftBod = {
+      id: prevPost?.id,
+      title,
+      image: headerImage,
+      body: content,
+      tags: tag,
+      created_by: session,
+    };
+    try {
+      setDraftLoader(true);
+      if (prevPost?.id && prevPost.created_by) {
+        const { data } = await base.put(
+          "/admin/edit_draft_post",
+          JSON.stringify(draftBod)
+        );
+        notifications.show({
+          color: "green",
+          title: "Great 🎉🎉🎉🎉",
+          message: "Draft Post updated successfully",
+        });
+      } else {
+        const { data } = await base.post(
+          "/admin/draft_post",
+          JSON.stringify(bod)
+        );
+        notifications.show({
+          color: "green",
+          title: "Great 🎉🎉🎉🎉",
+          message: "Draft Post saved successfully",
+        });
+      }
+      setDraftLoader(false);
+      clearInput();
+    } catch (error) {
+      notifications.show({
+        color: "red",
+        title: "Oh no! 😔😔😔",
+        message: "Draft Post saved successfully",
+      });
+      setDraftLoader(false);
+      clearInput();
+    }
+  };
+
   const post = async () => {
     const bod = {
       title,
@@ -139,6 +188,9 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
       body: content,
       tags: tag,
       posted_by: session,
+      created_by: session,
+      id: prevPost?.id,
+      from: prevPost?.created_by ? "draft" : "new",
     };
 
     const dditBod = {
@@ -149,9 +201,9 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
       tags: tag,
       posted_by: session,
     };
-    console.log(session);
+
     try {
-      if (prevPost?.id) {
+      if (prevPost?.id && prevPost.posted_by) {
         const { data } = await base.put(
           "/admin/edit_post",
           JSON.stringify(dditBod)
@@ -254,7 +306,10 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
         <div ref={counterRef} />
         <div className=" flex mt-3 gap-3">
           <Button onClick={post}> Submit </Button>
-          <Button onClick={saveToDraft}> save to Draft </Button>
+          <Button loading={draftLoader} onClick={saveToDraft}>
+            {" "}
+            save to Draft{" "}
+          </Button>
         </div>
       </div>
     </div>

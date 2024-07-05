@@ -8,6 +8,7 @@ export interface Post {
   image: string;
   comments: { body: string; post_id: number; commented_by: string }[];
   posted_by: string;
+  created_by?: string;
 }
 
 export interface GetPosts {
