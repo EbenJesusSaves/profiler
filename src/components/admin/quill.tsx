@@ -17,6 +17,7 @@ import base from "@/axios/baseApi";
 import { getSession } from "next-auth/react";
 import { Post } from "@/types/types";
 import { notifications } from "@mantine/notifications";
+import { Button as CustomBtn } from "../ui/CoolBtn";
 
 interface Props {
   prevContent?: string;
@@ -45,6 +46,7 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
   const [draftLoader, setDraftLoader] = useState(false);
   const cloudName = "djzn1iixv";
   const render = useRef<string | null>(null);
+  const [content, setContent] = useState("");
   const [uwConfig] = useState({
     cloudName,
     uploadPreset,
@@ -109,8 +111,11 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
       }
     );
   }
+  quill?.on("text-change", () => {
+    setContent(quill.root.innerHTML);
+  });
 
-  const content = quill?.root.innerHTML;
+  // const content = quill?.root.innerHTML;
   const insertImage = (file: string) => {
     const range = quill?.getSelection(true);
     if (range) {
@@ -232,7 +237,7 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
   setTimeout(() => {
     if (render.current !== null) return;
     quill?.clipboard.dangerouslyPasteHTML(prevPost?.body as string);
-  }, 500);
+  }, 300);
   setTimeout(() => {
     if (render.current !== null) return;
     render.current = prevPost?.date as string;
@@ -305,7 +310,10 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
         <div ref={quillRef} />
         <div ref={counterRef} />
         <div className=" flex mt-3 gap-3">
-          <Button onClick={post}> Submit </Button>
+          <CustomBtn color="" onClick={post}>
+            {" "}
+            Publish 🎉{" "}
+          </CustomBtn>
           <Button loading={draftLoader} onClick={saveToDraft}>
             {" "}
             save to Draft{" "}

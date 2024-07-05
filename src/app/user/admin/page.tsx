@@ -7,7 +7,7 @@ import { useAppSelector } from "../../lib/hooks";
 
 const Page = () => {
   const post = useAppSelector((state) => state.posts);
-  console.log(post);
+
   return (
     <div className="  flex flex-col mx-60 bg-[#070D0D]">
       <div className="flex  justify-around flex-wrap">

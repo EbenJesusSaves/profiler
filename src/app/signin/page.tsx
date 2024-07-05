@@ -52,7 +52,7 @@ const Page = () => {
         setLoading(false);
         return;
       }
-      router.replace("/user/admin");
+      router.replace("/user");
       setLoading(false);
     } catch (error) {
       console.log(error);

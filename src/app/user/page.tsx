@@ -43,7 +43,7 @@ import {
   IconBrandGithub,
   IconBrandLinkedin,
 } from "@tabler/icons-react";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import { Session } from "next-auth";
 import { upperFirst } from "@mantine/hooks";
 import { Chart } from "@/components/admin/Chart";
@@ -110,7 +110,7 @@ const Page = () => {
               bg={"rgb(16, 3, 24)"}
               withBorder
             >
-              <Card.Section component="a" href="">
+              <Card.Section>
                 <Image
                   src={post.image}
                   height={"130"}
@@ -287,23 +287,18 @@ const Page = () => {
             </div>
 
             <div className={s.footer}>
-              <a
-                href="#"
+              <button
                 className={s.link}
                 onClick={(event) => event.preventDefault()}
               >
                 <IconSwitchHorizontal className={s.linkIcon} stroke={1.5} />
                 <span>Change account</span>
-              </a>
+              </button>
 
-              <a
-                href="#"
-                className={s.link}
-                onClick={(event) => event.preventDefault()}
-              >
+              <div className={s.link} onClick={() => signOut()}>
                 <IconLogout className={s.linkIcon} stroke={1.5} />
                 <span>Logout</span>
-              </a>
+              </div>
             </div>
           </nav>
         </Grid.Col>
