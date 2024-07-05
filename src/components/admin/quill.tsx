@@ -17,6 +17,7 @@ import base from "@/axios/baseApi";
 import { getSession } from "next-auth/react";
 import { Post } from "@/types/types";
 import { notifications } from "@mantine/notifications";
+import { Button as CustomBtn } from "../ui/CoolBtn";
 
 interface Props {
   prevContent?: string;
@@ -309,10 +310,10 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
         <div ref={quillRef} />
         <div ref={counterRef} />
         <div className=" flex mt-3 gap-3">
-          <Button color="" onClick={post}>
+          <CustomBtn color="" onClick={post}>
             {" "}
             Publish 🎉{" "}
-          </Button>
+          </CustomBtn>
           <Button loading={draftLoader} onClick={saveToDraft}>
             {" "}
             save to Draft{" "}
