@@ -33,7 +33,7 @@ const Page = () => {
               <Button>Post Article</Button>
             </Link>
             <Link href={"/user"}>
-              <Button>Posts</Button>
+              <Button>Dashboard</Button>
             </Link>
           </Flex>
         )}
