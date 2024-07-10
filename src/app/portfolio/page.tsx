@@ -48,7 +48,7 @@ const Page = () => {
         </div>
 
         <div className=" font-bold text-xl md:text-4xl mt-10 text-white tex-center">
-          Ensure some Chilly Cool Articles ✨🧐{" "}
+          Ensure some Chilly Cool Articles ✨🧐
         </div>
         {/* <BackgroundBeams className="bg-black" /> */}
 

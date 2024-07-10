@@ -278,10 +278,10 @@ const Page = () => {
                     c={"white"}
                     style={{ cursor: "pointer" }}
                   >
-                    Dashboard
+                    Posts
                   </Text>{" "}
                 </Link>
-                <Code fw={700}>2.0.01</Code>
+                <Code fw={700}>2.223</Code>
               </Group>
               {links}
             </div>
