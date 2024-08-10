@@ -311,7 +311,10 @@ const RichTextEditor = ({ prevContent, prevPost }: Props) => {
         <div ref={quillRef} />
         <div ref={counterRef} />
         <div className=" flex mt-3 gap-3">
-          <ModalTrigger className="bg-black dark:bg-white dark:text-black text-white flex justify-center group/modal-btn">
+          <ModalTrigger
+            onClick={post}
+            className="bg-black dark:bg-white dark:text-black text-white flex justify-center group/modal-btn"
+          >
             <span className="group-hover/modal-btn:translate-x-40 text-center transition duration-500">
               Publish post now
             </span>
