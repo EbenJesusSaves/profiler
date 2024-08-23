@@ -25,10 +25,12 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.3.0",
     "axios": "^1.7.2",
-    "clsx": "^2.1.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "faker": "^6.6.6",
-    "framer-motion": "^11.1.1",
+    "framer-motion": "^11.3.29",
     "html-react-parser": "^5.1.10",
+    "lucide-react": "^0.433.0",
     "next": "14.2.1",
     "next-auth": "^5.0.0-beta.19",
     "quill": "^2.0.2",
@@ -41,7 +43,8 @@
     "recharts": "^2.12.7",
     "sharp": "^0.33.3",
     "simplex-noise": "^4.0.1",
-    "tailwind-merge": "^2.2.2"
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
