@@ -13,7 +13,7 @@ import logo8 from "../../../public/logo/next.webp";
 
 export function InfiniteMovingCardsDemo() {
   return (
-    <div className="h-[20rem] hidden md:block rounded-md  flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+    <div className="h-[20rem] flex items-center justify-center">
       <InfiniteMovingCards
         items={testimonials}
         direction="right"
