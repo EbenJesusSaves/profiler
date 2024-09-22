@@ -10,10 +10,8 @@ import { SparklesPreview } from "./Sparkles";
 import { TextRevealCardPreview } from "./TextCard";
 import { TypewriterEffectSmoothDemo } from "./WritingEffect";
 import { InfiniteMovingCardsDemo } from "./logos";
-import { HeroParallaxDemo } from "./projects";
 import { MouseEvent, useRef } from "react";
 import { HeroHighlight } from "../ui/Vortex";
-import { Text } from "@mantine/core";
 import { LinkPreviewDemoSecond } from "./ColorsScrollEffect";
 
 // import s from '../../app/globals.css'

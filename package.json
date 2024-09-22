@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@cloudinary/react": "^1.13.0",
-    "@cloudinary/url-gen": "^1.19.0",
+    "@cloudinary/url-gen": "^1.21.0",
     "@emailjs/browser": "^4.3.3",
     "@mantine/charts": "^7.10.1",
     "@mantine/core": "^7.10.1",
