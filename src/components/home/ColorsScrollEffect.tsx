@@ -1,37 +1,27 @@
 "use client";
-import { useScroll, useTransform } from "framer-motion";
 import React from "react";
-import { GoogleGeminiEffect } from "../ui/colorsMoving";
-
-export function GoogleGeminiEffectComponent() {
-  const ref = React.useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  const pathLengthFirst = useTransform(scrollYProgress, [0, 0.8], [0.2, 1.2]);
-  const pathLengthSecond = useTransform(scrollYProgress, [0, 0.8], [0.15, 1.2]);
-  const pathLengthThird = useTransform(scrollYProgress, [0, 0.8], [0.1, 1.2]);
-  const pathLengthFourth = useTransform(scrollYProgress, [0, 0.8], [0.05, 1.2]);
-  const pathLengthFifth = useTransform(scrollYProgress, [0, 0.8], [0, 1.2]);
-
+import { LinkPreview } from "./LinkPreview";
+import linked from "/public/images/LINKEDIN.webp";
+import { Text } from "@mantine/core";
+export function LinkPreviewDemoSecond() {
   return (
-    <div
-      className="h-[400vh] bg-black w-full dark:border dark:border-white/[0.1] rounded-md relative pt-40 overflow-clip"
-      ref={ref}
-    >
-      <GoogleGeminiEffect
-        title="All roads lead to the Seer "
-        description="Get in touch, let work the magic together:"
-        pathLengths={[
-          pathLengthFirst,
-          pathLengthSecond,
-          pathLengthThird,
-          pathLengthFourth,
-          pathLengthFifth,
-        ]}
-      />
+    <div className="flex justify-center  items-center h-[40rem] flex-col px-4">
+      <p className="text-neutral-600 dark:text-neutral-600 text-xl  md:text-3xl max-w-3xl font-bold text-left mb-10">
+        Visit{" "}
+        <LinkPreview
+          url="https://www.linkedin.com/in/agyekum-ebenezer-b24611129/"
+          className="font-bold bg-gradient-to-br from-purple-500 to-pink-500"
+          isStatic
+          imageSrc={linked}
+        >
+          My Linked Profile
+        </LinkPreview>{" "}
+        to find out more about me
+      </p>
+      <Text c={"gray"} fz={15} style={{ textAlign: "center" }}>
+        And Many 🙏 for taking time out of your busy schdules to check my
+        profile
+      </Text>
     </div>
   );
 }
