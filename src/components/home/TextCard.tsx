@@ -1,44 +1,67 @@
 "use client";
 import React from "react";
-import {
-  TextRevealCard,
-  TextRevealCardDescription,
-  TextRevealCardTitle,
-} from "../ui/textRevialCard";
-// import {
-//     TextRevealCard,
-//     TextRevealCardDescription,
-//     TextRevealCardTitle,
-// } from "../ui/text-reveal-card";
 
 export function TextRevealCardPreview() {
   return (
-    <div className="flex items-center justify-center flex-col bg-[#0e0e10]  w-full">
-      <>
-        <TextRevealCardTitle className="justify-center text-center">
-          A creative software Engineer.
-        </TextRevealCardTitle>
-        <TextRevealCardDescription className="text-center sm:w-[10rem] md:w-[45rem]">
-          {`Ebenezer is React Native and React Developer with over 4
-            years of experience in building mobile and web apps. Currently, Ebenezer
-            works as a Frontend developer at Jotella Media Group (Toronto Canada, Remote), where he builds performant mobile and web apps with
-            React Native, React, Next.js, and Typescript. Before that, He worked as JavaScript Instructor 
-            at Grassroot Academy (London UK, Remote), where
-            he had the pleasure of teaching others. In the past, he has also worked
-            as a UI/UX Designer at Fofoofotech (Accra, Ghana), designing websites, mobile apps,
-            logos, and flyers for some of the biggest enterprise firms. It was a
-            fantastic experience that helped him increase their revenue. Ebenezer is
-            comfortable working in large-scale collaborations, and Ebenezer's skills
-            include React Native, React, Next.js, Typescript, Express, Node.js,
-            MongoDB, Postgres SQL, UI/UX designing, data mining, JavaScript, and
-            Python/Java/R.`}
-        </TextRevealCardDescription>
-      </>{" "}
-      <div className="hidden md:block">
-        <TextRevealCard
-          text="You know the business"
-          revealText="I know the chemistry "
-        />
+    <div className="bg-black w-full px-10 py-12 md:px-20 md:py-20 font-sans">
+      <div className="max-w-[81%] mx-auto">
+        <h2 className="text-5xl md:text-7xl font-bold text-white mb-12 tracking-tighter">
+          About Me
+        </h2>
+
+        <div className="flex flex-col md:flex-row justify-between gap-12">
+          {/* Text Content */}
+          <div className="md:w-1/2 space-y-6 text-gray-300 text-lg leading-relaxed">
+            <p>
+              Ebenezer is a React Native and React Developer with over 4 years
+              of experience in building mobile and web apps. Currently, he works
+              as a Frontend developer at Jotella Media Group (Toronto Canada,
+              Remote), where he builds performant mobile and web apps with React
+              Native, React, Next.js, and Typescript.
+            </p>
+            <p>
+              Before that, he worked as a JavaScript Instructor at Grassroot
+              Academy (London UK, Remote), teaching others. In the past, he has
+              also worked as a UI/UX Designer at Fofoofotech (Accra, Ghana),
+              designing websites, mobile apps, logos, and flyers. His skills
+              include React Native, React, Next.js, Typescript, Express,
+              Node.js, MongoDB, Postgres SQL, UI/UX designing, data mining,
+              JavaScript, and Python/Java/R.
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="md:w-1/2 flex flex-row items-end justify-start md:justify-end gap-8 md:gap-12">
+            <div className="flex flex-col">
+              <span className="text-4xl md:text-5xl font-bold text-white">
+                5+
+              </span>
+              <span className="text-sm text-gray-400 mt-2">
+                Years of experience
+              </span>
+            </div>
+            <div className="h-16 w-[1px] bg-gray-700"></div>
+            <div className="flex flex-col">
+              <span className="text-4xl md:text-5xl font-bold text-white">
+                20+
+              </span>
+              <span className="text-sm text-gray-400 mt-2">
+                Completed projects
+              </span>
+            </div>
+            <div className="h-16 w-[1px] bg-gray-700"></div>
+            <div className="flex flex-col">
+              <span className="text-4xl md:text-5xl font-bold text-white">
+                10+
+              </span>
+              <span className="text-sm text-gray-400 mt-2">
+                Companies & Clients worldwide
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full h-[1px] bg-gray-800 mt-16"></div>
       </div>
     </div>
   );

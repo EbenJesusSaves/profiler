@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-import { Inter } from "next/font/google";
+import { Inter, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { auth, BASE_PATH } from "@/auth/auth";
 import { SessionProvider } from "next-auth/react";
 const inter = Inter({ subsets: ["latin"] });
+const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
 import { GoogleAnalytics } from "@next/third-parties/google";
 export const metadata: Metadata = {
   title: "Ebenezer' Work Progress",
@@ -21,7 +22,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className} style={{ backgroundColor: "black" }}>
+      <body
+        className={`${inter.className} ${dmSans.variable}`}
+        style={{ backgroundColor: "black" }}
+      >
         <SessionProvider basePath={BASE_PATH} session={session}>
           <MantineProvider defaultColorScheme="dark">
             <Notifications position="top-right" />

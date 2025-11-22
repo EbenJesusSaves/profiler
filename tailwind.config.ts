@@ -15,6 +15,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-dm-sans)", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         "custom-blue": "rgba(9, 55, 182, 0.4419)",
       },

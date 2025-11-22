@@ -13,6 +13,7 @@ import { InfiniteMovingCardsDemo } from "./logos";
 import { MouseEvent, useRef } from "react";
 import { HeroHighlight } from "../ui/Vortex";
 import { LinkPreviewDemoSecond } from "./ColorsScrollEffect";
+import { RecentWork } from "./RecentWork";
 
 // import s from '../../app/globals.css'
 export const HomeComp = () => {
@@ -27,7 +28,7 @@ export const HomeComp = () => {
     <>
       <div className="overflow-hidden flex justify-center items-center flex-col">
         <div className=" w-[99vw] overflow-hidden">
-          <div className="bg-[#0e0e10] w-full flex  flex-col items-center">
+          <div className="bg-[#000000] w-full flex  flex-col items-center">
             <SparklesPreview />
             <div className="flex justify-center flex-wrap-reverse lg:flex-nowrap">
               <div className="w-[25rem] md:w-full">
@@ -45,6 +46,7 @@ export const HomeComp = () => {
                 </div>
               </div>
             </div>
+            <RecentWork />
             <Aboutme />
           </div>
           <HeroHighlight className="overflow-hidden justify-center items-center">
